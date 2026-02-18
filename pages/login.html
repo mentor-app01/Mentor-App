@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MentorApp</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body>
+
+    <main class="auth-container">
+        
+        <a href="../index.html" class="back-link">
+            <i class="ph ph-arrow-left"></i> Voltar ao Início
+        </a>
+
+        <div class="auth-card">
+            <div class="auth-header">
+                <img src="../assets/img/logo.png" alt="MentorApp" class="auth-logo">
+                <h2>Bem-vindo de volta</h2>
+                <p>Acesse sua conta para continuar.</p>
+            </div>
+
+            <div class="auth-tabs">
+    <button type="button" class="tab-btn active" data-type="student">Sou Aluno</button>
+    <button type="button" class="tab-btn" data-type="teacher">Sou Professor</button>
+</div>
+
+            <form id="loginForm" class="auth-form">
+                <div class="input-group">
+                    <label for="email">E-mail ou Usuário</label>
+                    <input type="text" id="email" placeholder="ex: usuario@email.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" placeholder="Sua senha secreta" required>
+                </div>
+
+                <div class="form-actions">
+                    <a href="#" class="forgot-pass">Esqueci minha senha</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                    Acessar como Aluno
+                </button>
+            </form>
+
+            <div class="auth-footer">
+<p>Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/auth.js"></script>
+    <script src="../assets/js/theme.js"></script> 
+</body>
+</html>

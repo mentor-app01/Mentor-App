@@ -1,0 +1,716 @@
+/* =========================================
+   LIBRARY.CSS - Estilos da Biblioteca (COMPATÍVEL)
+   ========================================= */
+
+/* --- Container Principal --- */
+.library-container {
+    padding-top: 40px; /* Espaço após o header fixo */
+    padding-bottom: clamp(40px, 6vw, 80px);
+    min-height: calc(100vh - 120px); /* Considera header + padding */
+}
+
+/* --- Barra de Pesquisa e Filtros --- */
+.search-section {
+    text-align: center;
+    margin-bottom: clamp(30px, 5vw, 60px);
+    max-width: min(100%, 700px);
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px; /* ADICIONADO: Espaço extra no topo */
+}
+
+.search-box {
+    position: relative;
+    margin-bottom: clamp(15px, 2.5vw, 25px); /* REDUZIDO: De 20-30px para 15-25px */
+}
+
+.search-icon {
+    position: absolute;
+    left: clamp(16px, 4vw, 20px);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-light);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    z-index: 2;
+}
+
+.search-box input {
+    width: 100%;
+    padding: clamp(14px, 3vw, 18px) clamp(16px, 4vw, 20px) clamp(14px, 3vw, 18px) clamp(48px, 6vw, 60px);
+    border-radius: 50px;
+    border: 2px solid rgba(0,0,0,0.05);
+    background-color: var(--surface-color);
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: var(--text-color);
+    outline: none;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-box input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 6px 20px rgba(194, 148, 55, 0.2);
+    transform: translateY(-1px);
+}
+
+.search-box input::placeholder {
+    color: var(--primary-light);
+    opacity: 0.8;
+}
+
+/* Filtros (Tags) */
+.filter-tags {
+    display: flex;
+    justify-content: center;
+    gap: clamp(8px, 2vw, 12px);
+    flex-wrap: wrap;
+    padding: 15px 10px 10px; /* MODIFICADO: 15px top, 10px bottom */
+    margin-top: 5px; /* ADICIONADO: Espaço acima dos botões */
+}
+
+.filter-btn {
+    padding: clamp(6px, 1.5vw, 8px) clamp(12px, 2.5vw, 20px);
+    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: var(--surface-color);
+    color: var(--text-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    white-space: nowrap;
+    min-height: 38px; /* AUMENTADO: De 36px para 38px */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+/* CORREÇÃO: Texto branco em botões ativos (todos exceto premium) */
+.filter-btn:hover, 
+.filter-btn.active {
+    background-color: var(--title-color);
+    color: #ffffff !important; /* FORÇA TEXTO BRANCO */
+    border-color: var(--title-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.filter-btn.premium {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    background: transparent;
+}
+
+/* CORREÇÃO: Texto branco também em botões premium ativos */
+.filter-btn.premium:hover, 
+.filter-btn.premium.active {
+    background-color: var(--accent-color);
+    color: #ffffff !important; /* FORÇA TEXTO BRANCO */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(194, 148, 55, 0.3);
+}
+
+.filter-btn.premium i {
+    font-size: 0.9em;
+}
+
+/* --- Layout do Conteúdo --- */
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr minmax(250px, 300px);
+    gap: clamp(30px, 4vw, 50px);
+    align-items: start;
+}
+
+/* --- GRID DE VÍDEOS --- */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+    gap: clamp(16px, 3vw, 24px);
+    width: 100%;
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Card do Vídeo */
+.video-card {
+    background-color: var(--surface-color);
+    border-radius: clamp(10px, 2vw, 14px);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    height: 100%;
+    position: relative;
+}
+
+.video-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(194, 148, 55, 0.2);
+    border-color: var(--accent-color);
+}
+
+[data-theme="dark"] .video-card:hover {
+    box-shadow: 0 15px 35px rgba(194, 148, 55, 0.15);
+}
+
+/* Thumbnail (Capa) */
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    display: block;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.video-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.video-card:hover .video-thumbnail img {
+    transform: scale(1.08);
+}
+
+/* Ícone de Play */
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    color: white;
+    opacity: 0;
+    transition: all 0.3s ease;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    z-index: 2;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.video-card:hover .play-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Overlay para hover */
+.video-thumbnail::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.4) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.video-card:hover .video-thumbnail::after {
+    opacity: 1;
+}
+
+/* Badge Premium */
+.badge.premium {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
+    color: white;
+    padding: clamp(4px, 1vw, 6px) clamp(10px, 2vw, 14px);
+    border-radius: 20px;
+    font-size: clamp(0.65rem, 1.5vw, 0.75rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(194, 148, 55, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+/* Conteúdo do Card */
+.video-content {
+    padding: clamp(14px, 2.5vw, 20px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1.5vw, 12px);
+    flex-grow: 1;
+}
+
+.video-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary-light);
+    letter-spacing: 0.3px;
+}
+
+.video-meta .category {
+    color: var(--accent-color);
+    background: rgba(194, 148, 55, 0.1);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+}
+
+.video-title {
+    margin: 0;
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    line-height: 1.4;
+    font-weight: 700;
+    color: var(--title-color);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 2.8em;
+}
+
+.video-author {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+[data-theme="dark"] .video-author {
+    border-top-color: rgba(255,255,255,0.05);
+}
+
+.video-author i {
+    font-size: 0.9em;
+    color: var(--accent-color);
+}
+
+/* --- Sidebar --- */
+.sidebar {
+    position: sticky;
+    top: 120px; /* Header (80px) + padding-top (40px) */
+}
+
+.ads-box {
+    background-color: var(--surface-color);
+    border: 2px dashed var(--primary-light);
+    border-radius: clamp(12px, 2vw, 16px);
+    padding: clamp(20px, 3vw, 30px);
+    text-align: center;
+    min-height: clamp(200px, 35vh, 300px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.ads-box:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.ad-label {
+    font-size: clamp(0.65rem, 1.5vw, 0.75rem);
+    color: var(--primary-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    background: rgba(0,0,0,0.03);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+[data-theme="dark"] .ad-label {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.1);
+}
+
+.ad-content p {
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    color: var(--title-color);
+    margin-bottom: 8px;
+}
+
+.ad-content small {
+    font-size: clamp(0.8rem, 2vw, 0.9rem);
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* =========================================
+   ANIMAÇÕES
+   ========================================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   RESPONSIVIDADE COMPLETA
+   ========================================= */
+
+/* Laptop Médio: 1025px - 1200px */
+@media (max-width: 1200px) {
+    .content-wrapper {
+        grid-template-columns: 1fr minmax(240px, 280px);
+        gap: 35px;
+    }
+    
+    .video-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+    }
+    
+    .sidebar {
+        top: 115px; /* Header (70px) + padding-top (45px) */
+    }
+}
+
+/* Tablet Grande: 901px - 1024px */
+@media (max-width: 1024px) {
+    .library-container {
+        padding-top: 35px;
+    }
+    
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .sidebar {
+        position: static;
+        order: -1;
+        max-width: 500px;
+        margin: 0 auto 30px;
+        width: 100%;
+    }
+    
+    .ads-box {
+        min-height: 180px;
+    }
+}
+
+/* Tablet: 769px - 900px */
+@media (max-width: 900px) {
+    .video-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+        gap: 20px;
+    }
+    
+    .search-section {
+        margin-bottom: 35px;
+    }
+    
+    .filter-tags {
+        justify-content: flex-start;
+        padding: 15px 0 10px; /* AJUSTADO: Removido padding lateral */
+    }
+}
+
+/* Mobile Grande: 601px - 768px */
+@media (max-width: 768px) {
+    .library-container {
+        padding-top: 30px;
+        padding-bottom: 50px;
+    }
+    
+    .search-section {
+        margin-bottom: 25px; /* REDUZIDO: De 30px para 25px */
+        text-align: left;
+        padding-top: 5px; /* AJUSTADO: Menos padding no mobile */
+    }
+    
+    .filter-tags {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding: 12px 10px 8px; /* AJUSTADO: 12px top, 8px bottom */
+        margin: 0 -10px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-light) transparent;
+    }
+    
+    .filter-tags::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .filter-tags::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .filter-tags::-webkit-scrollbar-thumb {
+        background: var(--primary-light);
+        border-radius: 10px;
+    }
+    
+    .video-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(180px, 100%), 1fr));
+        gap: 16px;
+    }
+    
+    .ads-box {
+        min-height: 160px;
+        padding: 20px;
+    }
+    
+    /* Ajuste para menu mobile aberto */
+    .main-nav.active ~ main .library-container {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+/* Mobile Médio: 481px - 600px */
+@media (max-width: 600px) {
+    .library-container {
+        padding-top: 25px;
+    }
+    
+    .video-grid {
+        grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
+        gap: 14px;
+    }
+    
+    .video-content {
+        padding: 14px;
+    }
+    
+    .video-title {
+        font-size: 0.9rem;
+        min-height: 2.6em;
+    }
+    
+    .video-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .search-box input {
+        padding: 14px 16px 14px 45px;
+        font-size: 0.9rem;
+    }
+    
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        min-height: 36px; /* AJUSTADO: Volta ao normal no mobile */
+    }
+    
+    .search-box {
+        margin-bottom: 12px; /* REDUZIDO: Menos espaço no mobile */
+    }
+}
+
+/* Mobile Pequeno: até 480px */
+@media (max-width: 480px) {
+    .library-container {
+        padding-top: 25px;
+        padding-bottom: 40px;
+    }
+    
+    .video-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .video-card {
+        max-width: 100%;
+    }
+    
+    .search-box {
+        margin-bottom: 10px; /* REDUZIDO: Ainda menos no mobile pequeno */
+    }
+    
+    .search-box input {
+        border-radius: 12px;
+        padding: 16px 16px 16px 45px;
+    }
+    
+    .filter-tags {
+        justify-content: space-between;
+        padding: 10px 0 5px; /* AJUSTADO: Padding reduzido */
+    }
+    
+    .filter-btn {
+        flex: 1;
+        min-width: 0;
+        padding: 10px;
+        font-size: 0.8rem;
+        min-height: 34px; /* AJUSTADO: Menor no mobile pequeno */
+    }
+    
+    .ads-box {
+        min-height: 140px;
+        padding: 20px 15px;
+    }
+    
+    .ad-content p {
+        font-size: 1.1rem;
+    }
+}
+
+/* Mobile Muito Pequeno: até 360px */
+@media (max-width: 360px) {
+    .library-container {
+        padding-top: 20px;
+    }
+    
+    .filter-btn {
+        font-size: 0.75rem;
+        padding: 8px 10px;
+        min-height: 32px; /* AJUSTADO: Menor ainda */
+    }
+    
+    .video-content {
+        padding: 12px;
+    }
+    
+    .video-title {
+        font-size: 0.85rem;
+    }
+    
+    .video-author {
+        font-size: 0.75rem;
+    }
+    
+    .badge.premium {
+        padding: 3px 8px;
+        font-size: 0.6rem;
+    }
+}
+
+/* =========================================
+   ACESSIBILIDADE
+   ========================================= */
+@media (prefers-reduced-motion: reduce) {
+    .video-card,
+    .search-box input,
+    .filter-btn,
+    .ads-box {
+        transition: none !important;
+        transform: none !important;
+    }
+    
+    .video-grid {
+        animation: none;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .video-card {
+        border: 2px solid currentColor;
+    }
+    
+    .filter-btn {
+        border: 2px solid currentColor;
+    }
+    
+    .ads-box {
+        border-style: solid;
+    }
+}
+
+/* =========================================
+   DARK MODE AJUSTES
+   ========================================= */
+[data-theme="dark"] .search-box input {
+    border-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(15, 23, 42, 0.5);
+}
+
+[data-theme="dark"] .filter-btn {
+    border-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(15, 23, 42, 0.5);
+}
+
+[data-theme="dark"] .video-card {
+    border-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(15, 23, 42, 0.5);
+}
+
+[data-theme="dark"] .ads-box {
+    border-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(15, 23, 42, 0.3);
+}
+
+/* =========================================
+   ESTADOS DE CARREGAMENTO
+   ========================================= */
+.video-grid.loading .video-card {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* =========================================
+   COMPATIBILIDADE PERFEITA COM GLOBAL.CSS
+   ========================================= */
+
+/* Garante que âncoras de scroll funcionem com header fixo */
+.video-card:target {
+    scroll-margin-top: 140px; /* Header + espaço extra */
+}
+
+/* Previne z-index conflicts com menu mobile */
+@media (max-width: 768px) {
+    .main-nav.active {
+        z-index: 1001; /* Acima do conteúdo */
+    }
+    
+    .library-container {
+        position: relative;
+        z-index: 1; /* Abaixo do menu mobile */
+    }
+}
+
+/* Ajuste fino do sticky sidebar em diferentes alturas */
+@media (max-width: 768px) and (min-width: 601px) {
+    .sidebar {
+        top: 90px; /* Header 60px + padding 30px */
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        top: 80px; /* Header 55px + padding 25px */
+    }
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plataforma de mentorias e estudos educacionais.">
+    <title>Home | MentorApp</title>
+
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/home.css">
+    
+    <!-- Ícone (opcional) -->
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+</head>
+<body>
+
+    <!-- HEADER COM MENU HAMBURGUER -->
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="header-left">
+                <a href="index.html" class="logo-container">
+                    <img src="assets/img/logo.png" alt="MentorApp" class="logo-img">
+                    <span class="logo-text">MentorApp</span>
+                </a>
+                
+                <!-- Botão hamburguer para mobile -->
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            
+            <!-- Navegação Principal -->
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="nav-link active">Início</a></li>
+                    <li><a href="pages/biblioteca.html" class="nav-link">Biblioteca Free</a></li>
+                    <li><a href="pages/contato.html" class="nav-link">Contato</a></li>
+                    
+                    <!-- Botão Premium destacado -->
+                 <li class="nav-premium" id="authNavArea">
+    <a href="pages/login.html" class="nav-link btn-nav-highlight">Sou Premium</a>
+</li>
+                    
+                    <!-- Alternador de Tema -->
+                    <li class="nav-theme">
+                        <div class="checkbox-wrapper-8">
+                            <input type="checkbox" id="theme-toggle-input" class="tgl tgl-skewed">
+                            <label for="theme-toggle-input" data-tg-on="DARK" data-tg-off="LIGHT" class="tgl-btn"></label>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="hero-section">
+        <div class="container hero-content">
+            <!-- Texto Principal -->
+            <div class="text-content">
+                <h1>Potencialize seus estudos com o <span class="highlight">MentorApp</span></h1>
+                <p>
+                    Acesse vídeos, aulas exclusivas e conteúdo educacional de alta performance em um só lugar. 
+                    Conecte-se com os melhores professores.
+                </p>
+                
+                <!-- Botões de Ação -->
+                <div class="action-buttons">
+                    <a href="pages/biblioteca.html" class="btn btn-primary">
+                        Acessar Biblioteca Free
+                    </a>
+                    <a href="pages/login.html?type=teacher" class="btn btn-outline">
+                        Sou Professor
+                    </a>
+                </div>
+            </div>
+
+            <!-- Área de Publicidade -->
+            <aside class="ads-box" aria-label="Área de publicidade">
+                <span class="ad-label">Publicidade</span>
+                <div class="ad-content">
+                    <p>Espaço para Parceiros</p>
+                    <small>Divulgue aqui</small>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 MentorApp. Todos os direitos reservados.</p>
+            <p class="footer-links" style="margin-top: 10px; font-size: 0.85rem;">
+                <a href="pages/contato.html" style="color: #cbd5e1; margin: 0 10px;">Contato</a> | 
+                <a href="#" style="color: #cbd5e1; margin: 0 10px;">Termos de Uso</a> | 
+                <a href="#" style="color: #cbd5e1; margin: 0 10px;">Política de Privacidade</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="assets/js/mobile-menu.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/home.js"></script>
+    <script src="assets/js/global.js"></script>
+    
+</body>
+</html>

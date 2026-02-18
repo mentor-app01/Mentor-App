@@ -1,0 +1,119 @@
+/* =========================================
+   AUTH.CSS
+   Estilos da Página de Login
+   ========================================= */
+
+/* CORREÇÃO CRUCIAL: Remove o espaço do menu fixo (que não existe aqui) */
+body {
+    padding-top: 0 !important;
+}
+
+/* Container Centralizado */
+.auth-container {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--bg-color) 0%, var(--surface-color) 100%);
+    position: relative; /* Para o botão absoluto funcionar */
+}
+
+/* Botão de Voltar "Normal" (Posicionado no canto) */
+.back-link {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.7;
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.back-link:hover {
+    opacity: 1;
+    color: var(--accent-color);
+    transform: translateX(-5px);
+}
+
+/* Cartão de Login */
+.auth-card {
+    background-color: var(--surface-color);
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-gold);
+    border: 1px solid rgba(0,0,0,0.05);
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Estilos Internos do Card (Mantidos) --- */
+.auth-header { text-align: center; margin-bottom: 30px; }
+.auth-logo { height: 60px; margin: 0 auto 15px; }
+.auth-header h2 { margin-bottom: 5px; color: var(--title-color); }
+.auth-header p { font-size: 0.9rem; color: var(--text-color); opacity: 0.8; }
+
+.auth-tabs {
+    display: flex;
+    background-color: var(--bg-color);
+    padding: 4px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.tab-btn {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 10px;
+    border-radius: 6px;
+    color: var(--text-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab-btn.active {
+    background-color: var(--surface-color);
+    color: var(--accent-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.input-group { margin-bottom: 15px; }
+.input-group label {
+    display: block; margin-bottom: 6px; font-size: 0.9rem;
+    font-weight: 600; color: var(--title-color);
+}
+
+.input-group input {
+    width: 100%; padding: 12px; border-radius: 8px;
+    border: 1px solid var(--primary-light);
+    background-color: var(--bg-color); color: var(--text-color);
+    outline: none; transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(194, 148, 55, 0.1);
+}
+
+.form-actions { display: flex; justify-content: flex-end; margin-bottom: 20px; }
+.forgot-pass { font-size: 0.85rem; color: var(--primary-light); }
+.btn-block { width: 100%; }
+
+.auth-footer {
+    text-align: center; margin-top: 20px; font-size: 0.9rem; color: var(--text-color);
+}
+.auth-footer a { color: var(--accent-color); font-weight: 700; }

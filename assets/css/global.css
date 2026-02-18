@@ -1,0 +1,782 @@
+    /* =========================================
+    GLOBAL.CSS (Estilos Comuns e Layout Base)
+    ========================================= */
+
+    /* =========================================
+    VARIÁVEIS CSS
+    ========================================= */
+    :root {
+        /* Cores Institucionais */
+        --primary-color: #0f172a;       /* Azul Escuro */
+        --primary-light: #475569;       /* Azul mais claro */
+        
+        /* Destaque (Dourado) */
+        --accent-color: #c29437;
+        --accent-dark: #a17a2b;
+        --accent-gradient: linear-gradient(135deg, #c29437 0%, #a17a2b 100%);
+
+        /* Fundo e Texto */
+        --bg-color: #f8fafc;
+        --surface-color: #ffffff;
+        --text-color: #333333; 
+        --title-color: #0f172a;
+
+        /* Sombras */
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+        --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+        --shadow-gold: 0 4px 15px rgba(194, 148, 55, 0.25);
+        
+        /* Transições */
+        --transition-fast: 0.2s ease;
+        --transition-normal: 0.3s ease;
+        --transition-slow: 0.5s ease;
+    }
+
+    /* --- MODO ESCURO --- */
+    [data-theme="dark"] {
+        --bg-color: #020617;
+        --surface-color: #0f172a;
+        --text-color: #cbd5e1;
+        --title-color: #f1f5f9;
+        --primary-light: #94a3b8;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,0.5);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+        --shadow-lg: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    /* =========================================
+    RESET E BASE
+    ========================================= */
+    * { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box; 
+    }
+
+    html { 
+        scroll-behavior: smooth; 
+        font-size: 16px; /* Base para unidades rem */
+    }
+
+    /* =========================================
+    SOLUÇÃO DEFINITIVA - HEADER FIXO
+    ========================================= */
+
+    /* Body com padding-top para header fixo */
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        padding-top: 80px; /* PADDING PARA HEADER FIXO */
+        transition: background-color var(--transition-normal), 
+                    color var(--transition-normal);
+        overflow-x: hidden;
+    }
+
+    /* Header com altura fixa */
+    .main-header {
+        background-color: var(--surface-color);
+        box-shadow: var(--shadow-md);
+        padding: 0.8rem 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: all var(--transition-normal);
+        backdrop-filter: blur(10px);
+        background-color: rgba(var(--surface-color-rgb), 0.95);
+        height: 80px; /* ALTURA FIXA */
+        display: flex;
+        align-items: center;
+    }
+
+    /* Main sem margin-top */
+    main {
+        flex: 1; /* Garante que o main ocupe o espaço restante */
+    }
+
+    /* =========================================
+    TIPOGRAFIA
+    ========================================= */
+    h1, h2, h3, h4, h5, h6 { 
+        font-family: 'Montserrat', sans-serif;
+        color: var(--title-color);
+        font-weight: 700;
+        line-height: 1.2;
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3rem); }
+    h2 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+    h3 { font-size: clamp(1.25rem, 3vw, 2rem); }
+    h4 { font-size: clamp(1.1rem, 2.5vw, 1.5rem); }
+
+    p { 
+        margin-bottom: 1rem;
+        font-size: clamp(0.95rem, 2vw, 1rem);
+    }
+
+    a { 
+        text-decoration: none; 
+        color: inherit;
+        transition: color var(--transition-fast);
+    }
+
+    ul { list-style: none; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* =========================================
+    UTILITÁRIOS
+    ========================================= */
+    .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 clamp(16px, 5vw, 24px); /* Padding responsivo */
+    }
+
+    /* Utilitários de display responsivo */
+    .hide-on-mobile { display: block; }
+    .show-on-mobile { display: none; }
+
+    @media (max-width: 768px) {
+        .hide-on-mobile { display: none; }
+        .show-on-mobile { display: block; }
+    }
+
+    /* Utilitário de texto truncado */
+    .text-truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* =========================================
+    HEADER PRINCIPAL - CORRIGIDO
+    ========================================= */
+
+    /* HEADER CONTENT - AJUSTES PARA EVITAR QUEBRA */
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        flex-wrap: nowrap; /* IMPEDE QUEBRA NO DESKTOP */
+        gap: 20px; /* Espaço consistente entre logo e nav */
+        height: 100%;
+        width: 100%;
+    }
+
+    /* Header Left (Logo + Hamburger) - AJUSTADO */
+    .header-left {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: auto; /* ALTERADO: não ocupa 100% no desktop */
+        flex-shrink: 0; /* Não deixa encolher */
+        min-width: 0; /* Permite que encolha apenas se necessário */
+    }
+
+    /* Logo - AJUSTADO */
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        transition: transform var(--transition-fast);
+        flex-shrink: 0; /* Não deixa o logo encolher */
+        min-width: max-content; /* Garante tamanho mínimo */
+    }
+
+    .logo-container:hover {
+        transform: translateY(-2px);
+    }
+
+    .logo-img {
+        height: clamp(40px, 8vw, 60px);
+        width: auto;
+        object-fit: contain;
+        flex-shrink: 0;
+    }
+
+    .logo-text {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 800;
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        color: var(--title-color);
+        letter-spacing: -0.5px;
+        line-height: 1;
+        white-space: nowrap; /* Garante que não quebre */
+    }
+
+    /* Botão Hamburguer */
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 1001;
+        transition: opacity var(--transition-fast);
+        flex-shrink: 0;
+    }
+
+    .menu-toggle:hover {
+        opacity: 0.8;
+    }
+
+    .menu-toggle span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background: var(--text-color);
+        border-radius: 3px;
+        transition: var(--transition-normal);
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Navegação Principal - AJUSTADA */
+    .main-nav {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0; /* Não deixa encolher */
+        min-width: 0; /* Permite encolher se necessário */
+    }
+
+    .nav-list {
+        display: flex;
+        gap: clamp(15px, 2vw, 24px);
+        align-items: center;
+        flex-wrap: nowrap; /* GARANTE QUE NÃO QUEBRE LINHA */
+        white-space: nowrap; /* IMPEDE QUEBRA DE TEXTO */
+        min-width: 0; /* Permite encolher se necessário */
+    }
+
+    .nav-link {
+        color: var(--text-color);
+        font-weight: 600;
+        font-size: 0.95rem;
+        position: relative;
+        padding: 8px 4px;
+        transition: color var(--transition-fast);
+        white-space: nowrap; /* IMPEDE QUEBRA DE TEXTO DENTRO DOS LINKS */
+        display: inline-block; /* Mantém como bloco inline */
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        color: var(--accent-color);
+    }
+
+    .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: var(--accent-color);
+        border-radius: 2px;
+    }
+
+    /* Itens específicos da navegação - AJUSTADOS */
+    .nav-premium {
+        margin-left: 10px;
+        white-space: nowrap; /* Garante que "Sou Premium" fique em uma linha */
+        flex-shrink: 0;
+    }
+
+    .nav-theme {
+        margin-left: 10px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* =========================================
+    BOTÕES - AJUSTADOS
+    ========================================= */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(10px, 2vw, 12px) clamp(20px, 3vw, 28px);
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        cursor: pointer;
+        text-align: center;
+        border: none;
+        font-family: 'Montserrat', sans-serif;
+        transition: all var(--transition-normal);
+        text-decoration: none;
+        line-height: 1;
+        white-space: nowrap; /* GARANTE TEXTO EM UMA LINHA */
+        flex-shrink: 0; /* Não deixa encolher */
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .btn:active {
+        transform: translateY(0);
+    }
+
+    .btn-primary {
+        background: var(--accent-gradient);
+        color: #fff;
+        box-shadow: var(--shadow-gold);
+    }
+
+    .btn-primary:hover {
+        filter: brightness(1.1);
+    }
+
+    .btn-outline {
+        background: transparent;
+        color: var(--accent-color);
+        border: 2px solid var(--accent-color);
+    }
+
+    .btn-outline:hover {
+        background: var(--accent-color);
+        color: #fff;
+    }
+
+    /* Botão de Destaque no Menu - AJUSTADO */
+    .btn-nav-highlight {
+        background: var(--accent-gradient);
+        color: #ffffff !important;
+        padding: 10px 24px;
+        border-radius: 8px;
+        font-weight: 700;
+        box-shadow: var(--shadow-gold);
+        transition: all var(--transition-normal);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        white-space: nowrap; /* GARANTE TEXTO EM UMA LINHA */
+        text-align: center;
+        min-width: max-content; /* NÃO DEIXA QUEBRAR */
+        flex-shrink: 0;
+    }
+
+    .btn-nav-highlight:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(194, 148, 55, 0.4);
+        filter: brightness(1.1);
+    }
+
+    .btn-full {
+        width: 100%;
+    }
+
+    .btn-small {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    .btn-large {
+        padding: 14px 32px;
+        font-size: 1.1rem;
+    }
+
+    /* =========================================
+    ALTERNADOR DE TEMA - AJUSTADO
+    ========================================= */
+    .checkbox-wrapper-8 {
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        flex-shrink: 0; /* Não deixa encolher */
+    }
+
+    .checkbox-wrapper-8 .tgl {
+        display: none;
+    }
+
+    .checkbox-wrapper-8 .tgl + .tgl-btn {
+        outline: 0;
+        display: block;
+        width: 5.5em;
+        height: 2.2em;
+        position: relative;
+        cursor: pointer;
+        user-select: none;
+        overflow: hidden;
+        transform: skew(-10deg);
+        backface-visibility: hidden;
+        transition: all 0.2s ease;
+        font-family: 'Montserrat', sans-serif;
+        background: #c29437; /* Dourado */
+        border: 1px solid rgba(255,255,255,0.2);
+        white-space: nowrap; /* GARANTE QUE NÃO QUEBRE */
+        flex-shrink: 0;
+    }
+
+    .checkbox-wrapper-8 .tgl + .tgl-btn:after {
+        content: attr(data-tg-on);
+        position: absolute;
+        left: 100%;
+        width: 100%;
+        text-align: center;
+        line-height: 2.2em;
+        font-weight: 800;
+        color: #fff;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        letter-spacing: 0.5px;
+        font-size: 0.9em;
+        transform: skew(10deg);
+        transition: all 0.2s ease;
+    }
+
+    .checkbox-wrapper-8 .tgl + .tgl-btn:before {
+        content: attr(data-tg-off);
+        position: absolute;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        line-height: 2.2em;
+        font-weight: 800;
+        color: #fff;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        letter-spacing: 0.5px;
+        font-size: 0.9em;
+        transform: skew(10deg);
+        transition: all 0.2s ease;
+    }
+
+    .checkbox-wrapper-8 .tgl:checked + .tgl-btn {
+        background: #0f172a; /* Azul Escuro */
+    }
+
+    .checkbox-wrapper-8 .tgl:checked + .tgl-btn:before {
+        left: -100%;
+    }
+
+    .checkbox-wrapper-8 .tgl:checked + .tgl-btn:after {
+        left: 0;
+    }
+
+    /* =========================================
+    FOOTER
+    ========================================= */
+    .main-footer {
+        background-color: #0f172a;
+        color: #f8fafc;
+        text-align: center;
+        padding: 24px 0;
+        margin-top: auto;
+        font-size: 0.9rem;
+        border-top: 4px solid var(--accent-color);
+    }
+
+    .main-footer a {
+        color: #cbd5e1;
+        transition: color var(--transition-fast);
+    }
+
+    .main-footer a:hover {
+        color: var(--accent-color);
+    }
+
+    .footer-links {
+        margin-top: 10px;
+        font-size: 0.85rem;
+    }
+
+    .footer-links a {
+        margin: 0 10px;
+    }
+
+    /* =========================================
+    RESPONSIVIDADE - AJUSTES DE ALTURA
+    ========================================= */
+
+    /* Tablet: 769px - 1024px */
+    @media (max-width: 1024px) {
+        html { font-size: 15px; }
+        
+        /* Ajuste altura do header e padding do body */
+        body {
+            padding-top: 70px;
+        }
+        
+        .main-header {
+            height: 70px;
+        }
+        
+        .nav-list {
+            gap: 12px; /* Reduz gap no tablet */
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+        }
+        
+        .btn-nav-highlight {
+            padding: 8px 18px; /* Reduz padding no tablet */
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Mobile: até 768px */
+    @media (max-width: 768px) {
+        html { font-size: 14px; }
+        
+        /* Ajuste altura do header e padding do body */
+        body {
+            padding-top: 60px;
+        }
+        
+        .main-header {
+            height: 60px;
+            padding: 0;
+        }
+        
+        /* QUEBRA PERMITIDA APENAS NO MOBILE */
+        .header-content {
+            flex-direction: column;
+            gap: 0;
+            flex-wrap: wrap; /* Permite quebra em mobile */
+            height: 60px;
+        }
+        
+        .header-left {
+            width: 100%; /* Ocupa 100% apenas no mobile */
+            height: 60px;
+            padding: 10px 0;
+        }
+        
+        .menu-toggle {
+            display: flex;
+        }
+        
+        .main-nav {
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height var(--transition-normal);
+            position: absolute;
+            top: 60px;
+            left: 0;
+            background: var(--surface-color);
+            box-shadow: var(--shadow-lg);
+            z-index: 999;
+        }
+        
+        .main-nav.active {
+            max-height: 500px;
+        }
+        
+        /* QUEBRA PERMITIDA APENAS NO MOBILE */
+        .nav-list {
+            flex-direction: column;
+            width: 100%;
+            gap: 0;
+            padding: 20px 0;
+            flex-wrap: wrap; /* Permite quebra */
+            white-space: normal; /* Permite quebra de texto */
+        }
+        
+        .nav-list li {
+            width: 100%;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            text-align: center;
+            font-size: 1rem;
+            width: 100%;
+            white-space: normal; /* Permite quebra em mobile */
+        }
+        
+        [data-theme="dark"] .nav-link {
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+        
+        .nav-premium {
+            order: -1;
+            margin: 0 0 10px 0;
+            width: 100%;
+            white-space: normal; /* Permite quebra em mobile */
+        }
+        
+        .btn-nav-highlight {
+            width: 100%;
+            justify-content: center;
+            margin: 0;
+            white-space: normal; /* Permite quebra em mobile */
+            min-width: auto; /* Remove min-width no mobile */
+        }
+        
+        .nav-theme {
+            margin: 15px 0 0 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            white-space: normal; /* Permite quebra em mobile */
+        }
+        
+        .checkbox-wrapper-8 {
+            font-size: 11px;
+        }
+    }
+
+    /* Mobile Pequeno: até 480px */
+    @media (max-width: 480px) {
+        html { font-size: 13px; }
+        
+        /* Ajuste altura do header e padding do body */
+        body {
+            padding-top: 55px;
+        }
+        
+        .main-header {
+            height: 55px;
+        }
+        
+        .header-left {
+            height: 55px;
+        }
+        
+        .main-nav {
+            top: 55px;
+        }
+        
+        .logo-text {
+            font-size: 1.4rem;
+        }
+        
+        .logo-img {
+            height: 45px;
+        }
+        
+        .main-footer {
+            padding: 20px 0;
+            font-size: 0.85rem;
+        }
+    }
+
+    /* =========================================
+    ANIMAÇÕES E EFEITOS
+    ========================================= */
+    .fade-in {
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    .slide-up {
+        animation: slideUp 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* =========================================
+    ACESSIBILIDADE
+    ========================================= */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+        
+        html {
+            scroll-behavior: auto;
+        }
+    }
+
+    /* Foco visível para teclado */
+    :focus-visible {
+        outline: 2px solid var(--accent-color);
+        outline-offset: 2px;
+    }
+
+    /* =========================================
+    SCROLLBAR PERSONALIZADA
+    ========================================= */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--bg-color);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--primary-light);
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent-color);
+    }
+
+    [data-theme="dark"] ::-webkit-scrollbar-track {
+        background: #0f172a;
+    }
+
+    [data-theme="dark"] ::-webkit-scrollbar-thumb {
+        background: #475569;
+    }
+
+    /* =========================================
+    GARANTIAS FINAIS PARA HEADER FIXO
+    ========================================= */
+
+    /* Garante que elementos fixed não se sobreponham */
+    .main-header {
+        z-index: 1000;
+    }
+
+    /* Garante que conteúdo não fique atrás do header */
+    *[id] {
+        scroll-margin-top: 100px; /* Para âncoras de scroll */
+    }
+
+    /* Previne problemas de sobreposição em modais/menus */
+    .modal-open .main-header {
+        z-index: 1040; /* Acima de modais Bootstrap se usar */
+    }

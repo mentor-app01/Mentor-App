@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil | MentorApp</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/profile.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="../index.html" class="logo-container">
+                <img src="../assets/img/logo.png" alt="MentorApp" class="logo-img">
+                <span class="logo-text">MentorApp</span>
+            </a>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="biblioteca.html" class="nav-link">Biblioteca</a></li>
+                    <li><a href="dashboard.html" class="nav-link">Painel</a></li>
+                    <li><a href="#" class="nav-link active">Meu Perfil</a></li>
+                    <li><a href="../index.html" class="nav-link logout-link">Sair</a></li>
+                    <li><button id="theme-toggle" class="btn-icon">🌙</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container profile-wrapper">
+        
+        <div class="page-header">
+            <h1 class="page-title">Configurações da Conta</h1>
+            <p>Gerencie seus dados pessoais e preferências de segurança.</p>
+        </div>
+
+        <div class="profile-grid">
+            
+            <aside class="profile-card avatar-section">
+                <div class="avatar-wrapper">
+                    <img src="https://github.com/kaio-83eu.png" alt="Avatar" id="avatarPreview">
+                    <button class="btn-edit-avatar" onclick="document.getElementById('avatarInput').click()">
+                        <i class="ph ph-camera"></i>
+                    </button>
+                    <input type="file" id="avatarInput" accept="image/*" hidden>
+                </div>
+                <h2>Kaio Developer</h2>
+                <span class="role-badge">Professor</span>
+                <p class="member-since">Membro desde Jan 2026</p>
+            </aside>
+
+            <section class="profile-card form-section">
+                <form id="profileForm">
+                    <h3>Dados Pessoais</h3>
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label>Nome Completo</label>
+                            <input type="text" value="Kaio Developer">
+                        </div>
+                        <div class="input-group">
+                            <label>E-mail</label>
+                            <input type="email" value="kaio@mentorapp.com" disabled title="Não é possível alterar o e-mail">
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <h3>Segurança</h3>
+                    <div class="row-group">
+                        <div class="input-group">
+                            <label>Nova Senha</label>
+                            <input type="password" placeholder="Deixe em branco para manter">
+                        </div>
+                        <div class="input-group">
+                            <label>Confirmar Senha</label>
+                            <input type="password" placeholder="Confirme a nova senha">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+    </main>
+
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/profile.js"></script>
+</body>
+</html>
