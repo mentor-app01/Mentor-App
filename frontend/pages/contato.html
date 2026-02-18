@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entre em contato com a equipe MentorApp.">
+    <title>Contato | MentorApp</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/contact.css">
+    
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="header-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../assets/img/logo.png" alt="MentorApp" class="logo-img">
+                    <span class="logo-text">MentorApp</span>
+                </a>
+                
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+                    <li><a href="../index.html" class="nav-link">Início</a></li>
+                    <li><a href="biblioteca.html" class="nav-link">Biblioteca Free</a></li>
+                    <li><a href="contato.html" class="nav-link active">Contato</a></li>
+                    
+                 <li class="nav-premium" id="authNavArea">
+    <a href="login.html" class="nav-link btn-nav-highlight">Sou Premium</a>
+</li>
+
+                    <li class="nav-theme">
+                        <div class="checkbox-wrapper-8">
+                            <input type="checkbox" id="theme-toggle-input" class="tgl tgl-skewed">
+                            <label for="theme-toggle-input" data-tg-on="DARK" data-tg-off="LIGHT" class="tgl-btn"></label>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container contact-wrapper">
+        
+        <section class="contact-info">
+            <h1>Fale Conosco</h1>
+            <p class="subtitle">Tem alguma dúvida, sugestão ou quer se tornar um parceiro? Estamos aqui para ajudar.</p>
+        </section>
+
+        <section class="contact-form-container">
+            <form class="contact-form">
+                <div class="input-group">
+                    <label for="name">Seu Nome</label>
+                    <input type="text" id="name" placeholder="Como devemos te chamar?" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="subject">Assunto</label>
+                    <select id="subject">
+                        <option value="duvida">Tenho uma dúvida</option>
+                        <option value="suporte">Problema técnico</option>
+                        <option value="parceria">Quero ser parceiro</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="message">Mensagem</label>
+                    <textarea id="message" rows="5" placeholder="Digite sua mensagem aqui..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Enviar Mensagem</button>
+            </form>
+        </section>
+
+        <div class="info-items">
+            <div class="info-box">
+                <i class="ph ph-envelope-simple"></i>
+                <div>
+                    <h3>E-mail</h3>
+                    <p>suporte@mentorapp.com.br</p>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <i class="ph ph-whatsapp-logo"></i>
+                <div>
+                    <h3>WhatsApp</h3>
+                    <p>(11) 99999-9999</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <i class="ph ph-map-pin"></i>
+                <div>
+                    <h3>Localização</h3>
+                    <p>Batalha, PI - Brasil</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 MentorApp. Todos os direitos reservados.</p>
+            <p class="footer-links" style="margin-top: 10px; font-size: 0.85rem;">
+                <a href="contato.html" style="color: #cbd5e1; margin: 0 10px;">Contato</a> | 
+                <a href="#" style="color: #cbd5e1; margin: 0 10px;">Termos de Uso</a> | 
+                <a href="#" style="color: #cbd5e1; margin: 0 10px;">Política de Privacidade</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/mobile-menu.js"></script>
+    <script src="../assets/js/theme.js"></script>
+<script src="../assets/js/global.js"></script>
+    </body>
+</html>

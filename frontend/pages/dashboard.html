@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Painel administrativo do professor.">
+    <title>Painel do Professor | MentorApp</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicon.ico">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="header-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../assets/img/logo.png" alt="MentorApp" class="logo-img">
+                    <span class="logo-text">MentorApp</span>
+                </a>
+                
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+                    <li><a href="../index.html" class="nav-link">Ver como Aluno</a></li>
+                    <li><a href="#" class="nav-link active">Painel</a></li>
+                    <li><a href="#" id="logoutBtn" class="nav-link">Sair</a></li>
+                    
+                    <li class="nav-premium">
+                        <a href="upload.html" class="nav-link btn-nav-highlight">
+                            <i class="ph ph-upload-simple" style="margin-right: 5px;"></i> Nova Aula
+                        </a>
+                    </li>
+
+                    <li class="nav-theme">
+                        <div class="checkbox-wrapper-8">
+                            <input type="checkbox" id="theme-toggle-input" class="tgl tgl-skewed">
+                            <label for="theme-toggle-input" data-tg-on="DARK" data-tg-off="LIGHT" class="tgl-btn"></label>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container dashboard-wrapper">
+        
+        <div class="dashboard-header">
+            <div class="welcome-text">
+                <h1 id="professorName">Olá, Professor (a)! 👋</h1>
+                <p>Aqui está o resumo do seu desempenho este mês.</p>
+            </div>
+            <a href="upload.html" class="btn btn-primary show-on-mobile" style="margin-top: 15px;">
+                <i class="ph ph-upload-simple"></i> Nova Aula
+            </a>
+        </div>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon users-icon"><i class="ph ph-student"></i></div>
+                <div class="stat-info">
+                    <h3>Total Alunos</h3>
+                    <p class="stat-number" id="totalStudents">--</p>
+                    <span class="stat-growth up"><i class="ph ph-trend-up"></i> +12%</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon views-icon"><i class="ph ph-eye"></i></div>
+                <div class="stat-info">
+                    <h3>Visualizações</h3>
+                    <p class="stat-number" id="totalViews">--</p>
+                    <span class="stat-growth up"><i class="ph ph-trend-up"></i> +8.5%</span>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon video-icon"><i class="ph ph-video-camera"></i></div>
+                <div class="stat-info">
+                    <h3>Aulas Ativas</h3>
+                    <p class="stat-number" id="totalVideos">--</p>
+                    <span class="stat-growth neutral"><i class="ph ph-check-circle"></i> Atualizado</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-list">
+            <div class="section-header">
+                <h2>Minhas Aulas Recentes</h2>
+                <div class="search-filter">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" placeholder="Pesquisar aula...">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="recent-classes">
+                    <thead>
+                        <tr>
+                            <th>Aula</th>
+                            <th>Categoria</th>
+                            <th>Status</th>
+                            <th>Views</th>
+                            <th style="text-align: right;">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classesTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 20px;">Carregando dados...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 MentorApp. Todos os direitos reservados.</p>
+            <p class="footer-links" style="margin-top: 10px; font-size: 0.85rem;">
+                <a href="contato.html" style="color: #cbd5e1; margin: 0 10px;">Contato</a> | 
+                <a href="#" style="color: #cbd5e1; margin: 0 10px;">Termos</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/mobile-menu.js"></script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

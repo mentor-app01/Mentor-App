@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistindo Aula | MentorApp</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/video.css">
+</head>
+<body>
+
+    <!-- HEADER ATUALIZADO -->
+    <header class="main-header">
+        <div class="container header-content">
+            <div class="header-left">
+                <a href="../index.html" class="logo-container">
+                    <img src="../assets/img/logo.png" alt="MentorApp" class="logo-img">
+                    <span class="logo-text">MentorApp</span>
+                </a>
+                
+                <!-- Botão hamburguer para mobile -->
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            
+            <nav class="main-nav" id="mainNav">
+                <ul class="nav-list">
+                    <li><a href="../index.html" class="nav-link">Início</a></li>
+                    <li><a href="biblioteca.html" class="nav-link active">Biblioteca Free</a></li>
+                    <li><a href="contato.html" class="nav-link">Contato</a></li>
+                    
+                    <li class="nav-premium">
+                        <a href="login.html" class="nav-link btn-nav-highlight">Sou Premium</a>
+                    </li>
+                    
+                    <li class="nav-theme">
+                        <div class="checkbox-wrapper-8">
+                            <input type="checkbox" id="theme-toggle-input" class="tgl tgl-skewed">
+                            <label for="theme-toggle-input" data-tg-on="DARK" data-tg-off="LIGHT" class="tgl-btn"></label>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container video-layout">
+        
+        <section class="main-content">
+            
+            <div class="navigation-top">
+                <a href="biblioteca.html" class="back-btn" aria-label="Voltar para Biblioteca">
+                    <i class="ph ph-arrow-left"></i>
+                </a>
+            </div>
+
+            <div class="video-player-wrapper">
+                <iframe id="videoPlayer" src="" title="Video Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                
+                <div id="premiumLock" class="premium-lock hidden">
+                    <i class="ph ph-lock-key"></i>
+                    <h2>Conteúdo Exclusivo</h2>
+                    <p>Esta aula é reservada para membros Premium.</p>
+                    <a href="login.html" class="btn btn-primary">Desbloquear Agora</a>
+                </div>
+            </div>
+
+            <div class="video-info">
+                <h1 id="videoTitle">Carregando...</h1>
+                <div class="meta-data">
+                    <span id="videoAuthor" class="author-badge">...</span>
+                    <span class="date-badge"><i class="ph ph-calendar-blank"></i> 21 Jan 2026</span>
+                </div>
+                <p id="videoDesc" class="description">...</p>
+            </div>
+        </section>
+
+        <aside class="sidebar-videos">
+            <h3>Próximas Aulas</h3>
+            <div id="relatedList" class="related-grid">
+                <!-- Vídeos relacionados serão carregados aqui -->
+            </div>
+        </aside>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 MentorApp. Todos os direitos reservados.</p>
+            <p class="footer-links" style="margin-top: 10px; font-size: 0.85rem;">
+                <a href="contato.html" style="color: #cbd5e1; margin: 0 10px;">Contato</a> | 
+                <a href="#" style="color: #cbd5e1; margin: 0 10px;">Termos de Uso</a> | 
+                <a href="#" style="color: #cbd5e1; margin: 0 10px;">Política de Privacidade</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/mobile-menu.js"></script>
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/global.js"></script>
+    <script src="../assets/js/video.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Aula | MentorApp</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/upload.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="../index.html" class="logo-container">
+                <img src="../assets/img/logo.png" alt="MentorApp" class="logo-img">
+                <span class="logo-text">MentorApp</span>
+            </a>
+            
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="nav-link">Painel</a></li>
+                    <li><a href="#" class="nav-link active">Upload</a></li>
+                    <li><a href="../index.html" class="nav-link" style="color: var(--primary-light);">Sair</a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container upload-wrapper">
+    
+    <form id="uploadForm" class="upload-grid">
+        
+        <a href="dashboard.html" class="back-btn-circle" aria-label="Voltar ao Painel">
+            <i class="ph ph-arrow-left"></i>
+        </a>
+
+        <h1 class="page-title">Publicar Nova Aula</h1>
+        
+        <section class="form-section details">
+            <div class="input-group">
+                <label for="title">Título da Aula</label>
+                <input type="text" id="title" placeholder="Ex: Introdução ao React Native" required>
+            </div>
+
+            <div class="input-group">
+                <label for="description">Descrição</label>
+                <textarea id="description" rows="5" placeholder="O que os alunos vão aprender nesta aula?" required></textarea>
+            </div>
+
+            <div class="row-group">
+                <div class="input-group">
+                    <label for="category">Categoria</label>
+                    <select id="category">
+                        <option value="frontend">Frontend</option>
+                        <option value="backend">Backend</option>
+                        <option value="mobile">Mobile</option>
+                        <option value="design">Design</option>
+                        <option value="new_category" style="font-weight:bold; color:var(--accent-color);">+ Criar nova</option>
+                    </select>
+                    <input type="text" id="newCategoryInput" class="hidden" placeholder="Digite o nome da categoria" style="margin-top: 10px;">
+                </div>
+
+                <div class="input-group">
+                    <label for="visibility">Visibilidade</label>
+                    <select id="visibility">
+                        <option value="free">Gratuito (Público)</option>
+                        <option value="premium">Premium (Assinantes)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="videoUrl">Link do Vídeo (YouTube/Vimeo)</label>
+                <div class="url-input-wrapper">
+                    <i class="ph ph-link"></i>
+                    <input type="url" id="videoUrl" placeholder="https://youtube.com/watch?v=..." required>
+                </div>
+            </div>
+        </section>
+
+        <section class="form-section media">
+            <label>Capa da Aula (Thumbnail)</label>
+            
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-content">
+                    <i class="ph ph-image"></i>
+                    <p>Arraste uma imagem</p>
+                    <span>1280x720 (JPG, PNG)</span>
+                </div>
+                <input type="file" id="thumbInput" accept="image/*" hidden>
+                <img id="thumbPreview" class="thumb-preview hidden" alt="Preview">
+                <button type="button" id="removeThumb" class="remove-btn hidden"><i class="ph ph-x"></i></button>
+            </div>
+
+            <div class="actions">
+                <button type="button" class="btn btn-outline" onclick="window.location.href='dashboard.html'">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Publicar Aula</button>
+            </div>
+        </section>
+
+    </form>
+
+</main>
+
+<script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/upload.js"></script>
+</body>
+</html>

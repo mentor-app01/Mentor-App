@@ -1,0 +1,277 @@
+/* =========================================
+   CONTACT.CSS - Estilos da Página de Contato
+   ========================================= */
+
+/* =========================================
+   LAYOUT WRAPPER
+   ========================================= */
+.contact-wrapper {
+    /* Padding responsivo seguindo o padrão da Home */
+    padding-top: clamp(30px, 6vw, 60px);
+    padding-bottom: clamp(60px, 10vw, 100px);
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(40px, 6vw, 60px);
+    
+    /* Largura controlada para leitura confortável */
+    width: 100%;
+    max-width: 900px; 
+    margin: 0 auto;
+}
+
+/* =========================================
+   CABEÇALHO E TEXTOS
+   ========================================= */
+.contact-info {
+    text-align: center;
+    width: 100%;
+    max-width: 700px;
+    
+    /* Animação de entrada */
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+.contact-info h1 {
+    font-size: clamp(2rem, 5vw, 3rem); /* Fluido */
+    margin-bottom: clamp(12px, 2vw, 20px);
+    line-height: 1.1;
+    color: var(--title-color);
+}
+
+.subtitle {
+    color: var(--text-color);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+/* =========================================
+   FORMULÁRIO PRINCIPAL
+   ========================================= */
+.contact-form-container {
+    width: 100%;
+    background-color: var(--surface-color);
+    
+    /* Padding responsivo interno */
+    padding: clamp(24px, 5vw, 48px);
+    
+    border-radius: 20px; /* Mais arredondado conforme tendência moderna */
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(0,0,0,0.05);
+    
+    /* Animação de entrada com delay */
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    animation-delay: 0.2s;
+    transition: box-shadow var(--transition-normal);
+}
+
+.contact-form-container:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+/* Inputs e Labels */
+.contact-form .input-group {
+    margin-bottom: 24px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700; /* Mais peso para legibilidade */
+    color: var(--title-color);
+    font-size: 0.95rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    width: 100%;
+    padding: 14px 16px; /* Área de toque maior */
+    border-radius: 8px;
+    border: 1px solid var(--primary-light);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+/* Estados de Foco */
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    border-color: var(--accent-color);
+    background-color: var(--surface-color);
+    box-shadow: 0 0 0 4px rgba(194, 148, 55, 0.15); /* Glow Dourado */
+}
+
+.contact-form textarea {
+    resize: vertical;
+    min-height: 150px;
+    line-height: 1.5;
+}
+
+/* Ajuste do botão dentro do form */
+.contact-form .btn-full {
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* =========================================
+   CARDS DE INFORMAÇÃO (Grid System)
+   ========================================= */
+.info-items {
+    display: grid;
+    /* Grid inteligente: cria colunas automáticas de no mínimo 250px */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    width: 100%;
+    
+    /* Animação */
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+    animation-delay: 0.4s;
+}
+
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: var(--surface-color);
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: all var(--transition-normal);
+}
+
+.info-box:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+}
+
+/* Ícones */
+.info-box i {
+    font-size: 2rem;
+    color: var(--accent-color);
+    background-color: rgba(194, 148, 55, 0.1);
+    padding: 12px;
+    border-radius: 50%;
+    flex-shrink: 0; /* Impede que o ícone amasse */
+    transition: transform var(--transition-fast);
+}
+
+.info-box:hover i {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.info-box h3 {
+    font-size: 1rem;
+    color: var(--title-color);
+    margin-bottom: 4px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.info-box p {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+[data-theme="dark"] .contact-form-container {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .contact-form input,
+[data-theme="dark"] .contact-form select,
+[data-theme="dark"] .contact-form textarea {
+    background-color: rgba(2, 6, 23, 0.5); /* Fundo mais escuro que a superfície */
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .contact-form input:focus,
+[data-theme="dark"] .contact-form select:focus,
+[data-theme="dark"] .contact-form textarea:focus {
+    border-color: var(--accent-color);
+    background-color: rgba(2, 6, 23, 0.8);
+}
+
+[data-theme="dark"] .info-box {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .info-box:hover {
+    border-color: var(--accent-color);
+    background-color: rgba(255,255,255, 0.03);
+}
+
+/* =========================================
+   ANIMAÇÕES
+   ========================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+@media (max-width: 768px) {
+    .contact-wrapper {
+        /* Remove o max-width no mobile para usar padding */
+        max-width: 100%; 
+    }
+
+    .contact-form-container {
+        border-radius: 16px;
+    }
+    
+    .info-items {
+        /* No mobile, força uma coluna para melhor visualização */
+        grid-template-columns: 1fr;
+    }
+
+    .info-box {
+        padding: 20px;
+    }
+}
+
+/* Mobile pequeno */
+@media (max-width: 480px) {
+    .contact-form .input-group {
+        margin-bottom: 20px;
+    }
+    
+    .contact-form label {
+        font-size: 0.9rem;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+    
+    .info-box i {
+        font-size: 1.6rem;
+        padding: 10px;
+    }
+}

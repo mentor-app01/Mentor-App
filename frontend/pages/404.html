@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página não encontrada | MentorApp</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="../assets/css/global.css">
+    
+    <style>
+        /* CSS Inline específico para esta página (simples demais para um arquivo separado) */
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--bg-color) 0%, var(--surface-color) 100%);
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 800;
+            line-height: 1;
+            background: var(--accent-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .error-title {
+            font-size: 2rem;
+            color: var(--title-color);
+            margin-bottom: 15px;
+        }
+
+        .error-text {
+            color: var(--text-color);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            background-color: var(--surface-color);
+            color: var(--title-color);
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border: 1px solid var(--primary-light);
+        }
+
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-gold);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .home-btn i { font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+
+    <main class="error-container">
+        
+        <div class="error-code">404</div>
+        
+        <h1 class="error-title">Ops! Página não encontrada</h1>
+        
+        <p class="error-text">
+            Parece que você se perdeu no caminho do conhecimento. 
+            A página que você está procurando não existe ou foi movida.
+        </p>
+
+        <a href="../index.html" class="home-btn">
+            <i class="ph ph-house"></i>
+            Voltar ao Início
+        </a>
+
+    </main>
+
+    <script src="../assets/js/theme.js"></script>
+</body>
+</html>
