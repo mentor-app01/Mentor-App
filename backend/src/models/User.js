@@ -6,16 +6,15 @@ const UserSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     
-   
     role: { type: String, enum: ['student', 'teacher', 'admin'], default: 'student' },
     status: { type: String, enum: ['pending', 'approved', 'rejected'], default: 'pending' },
     plan: { type: String, enum: ['free', 'premium'], default: 'free' }
 });
 
-UserSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
+// Removido o 'next' dos parâmetros e da execução, deixando apenas o async/await
+UserSchema.pre('save', async function() {
+    if (!this.isModified('password')) return;
     this.password = await bcrypt.hash(this.password, 10);
-    next();
 });
 
 UserSchema.methods.comparePassword = async function(candidatePassword) {
