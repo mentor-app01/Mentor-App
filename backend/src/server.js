@@ -21,6 +21,7 @@ app.use(express.json());
 // Definição das Rotas Principais
 app.use('/api/videos', videoRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/admin', require('./routes/admin'));
 
 // --- ROTA DE ESTATÍSTICAS (CORRIGIDA) ---
 app.get('/api/stats', async (req, res) => {
