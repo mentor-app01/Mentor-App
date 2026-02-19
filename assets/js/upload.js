@@ -9,12 +9,13 @@ if (userStr) {
     user = JSON.parse(userStr);
 }
 
-// Se não tem token ou não é admin, chuta pro login
-if (!token || !user || !user.isAdmin) {
+// NOVA REGRA DE SEGURANÇA: Verifica se é professor ou admin
+if (!token || !user || (user.role !== 'teacher' && user.role !== 'admin')) {
+    alert('Acesso restrito a professores.');
     window.location.href = '../pages/login.html';
 }
 
-const API_URL = 'https://mentorapp-api.onrender.com/api/videos';
+const API_URL = 'https://mentor-app-rdwc.onrender.com/api/videos';
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('uploadForm');

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchVideos(); // Busca os vídeos no Banco de Dados
 });
 
-const API_URL = 'https://mentorapp-api.onrender.com/api/videos';
+const API_URL = 'https://mentor-app-rdwc.onrender.com/api/videos';
 let allVideos = []; // Guarda os vídeos na memória para filtrar na busca
 
 // 1. BUSCAR VÍDEOS

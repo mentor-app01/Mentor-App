@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tabs = document.querySelectorAll('.tab-btn');
         tabs.forEach(tab => {
             tab.addEventListener('click', (e) => {
-                e.preventDefault(); // Impede submissão acidental
+                e.preventDefault(); 
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 isTeacher = tab.dataset.type === 'teacher';
@@ -36,11 +36,14 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.innerText = 'Criando conta...';
             btn.disabled = true;
 
+            const userRole = isTeacher ? 'teacher' : 'student';
+
             try {
-                const response = await fetch('https://mentorapp-api.onrender.com/api/auth/register', {
+                // 👇 A URL NOVA ESTÁ AQUI 👇
+                const response = await fetch('https://mentor-app-rdwc.onrender.com/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, password, isAdmin: isTeacher })
+                    body: JSON.stringify({ name, email, password, role: userRole })
                 });
 
                 const data = await response.json();
@@ -66,19 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
 
     if (loginForm) {
-        // 1. Lógica das Abas no Login (Apenas visual e texto do botão)
         const tabs = document.querySelectorAll('.tab-btn');
         const submitBtn = document.getElementById('submitBtn');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', (e) => {
-                e.preventDefault(); // Importante: evita que o botão envie o form
+                e.preventDefault(); 
                 
-                // Troca a classe active
                 tabs.forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
 
-                // Atualiza o texto do botão para dar feedback
                 const type = tab.dataset.type;
                 if (type === 'teacher') {
                     submitBtn.innerText = 'Acessar como Professor';
@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // 2. Envio do Login
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -100,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
 
             try {
-                const response = await fetch('https://mentorapp-api.onrender.com/api/auth/login', {
+                // 👇 A URL NOVA ESTÁ AQUI TAMBÉM 👇
+                const response = await fetch('https://mentor-app-rdwc.onrender.com/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -109,17 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 if (response.ok) {
-                    // Salva o Token e os dados do usuário no navegador
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('user', JSON.stringify(data.user));
 
-                    // Redireciona baseado no tipo de usuário
-                    if (data.user.isAdmin) {
-                        // Professor vai para o Dashboard (na mesma pasta pages)
+                    if (data.user.role === 'teacher' || data.user.role === 'admin') {
                         window.location.href = 'dashboard.html'; 
                     } else {
-                        // Aluno vai para a Biblioteca (na mesma pasta pages)
-                        // CORREÇÃO: Removido o "../" pois estão na mesma pasta
                         window.location.href = 'biblioteca.html'; 
                     }
                 } else {

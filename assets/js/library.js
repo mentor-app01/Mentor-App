@@ -1,5 +1,5 @@
-// URL da API (Backend)
-const API_URL = 'https://mentorapp-api.onrender.com/api/videos';
+// URL da API (Backend) - Atualizada para o Render
+const API_URL = 'https://mentor-app-rdwc.onrender.com/api/videos';
 
 const grid = document.getElementById('videoGrid');
 const searchInput = document.getElementById('searchInput');
@@ -10,7 +10,7 @@ let allVideos = [];
 // --- 1. BUSCAR VÍDEOS ---
 async function fetchVideos() {
     try {
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color:var(--text-color);">Carregando aulas...</p>';
+        if(grid) grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color:var(--text-color);">Carregando aulas...</p>';
 
         const response = await fetch(API_URL);
         if (!response.ok) throw new Error('Erro ao buscar vídeos');
@@ -20,12 +20,13 @@ async function fetchVideos() {
 
     } catch (error) {
         console.error('Erro:', error);
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #ef4444;">Erro ao carregar vídeos.</p>';
+        if(grid) grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #ef4444;">Erro ao carregar vídeos.</p>';
     }
 }
 
 // --- 2. RENDERIZAR NA TELA ---
 function renderVideos(filter = 'all', searchTerm = '') {
+    if(!grid) return;
     grid.innerHTML = '';
 
     const filtered = allVideos.filter(video => {
@@ -45,10 +46,10 @@ function renderVideos(filter = 'all', searchTerm = '') {
     }
 
     filtered.forEach(video => {
+        const videoId = video._id || video.id;
         const card = document.createElement('article');
-        card.className = `video-card`; // Classe base do CSS
+        card.className = `video-card`; 
         
-        // CORREÇÃO: Agora o HTML gerado bate com as classes do CSS (library.css)
         card.innerHTML = `
             <div class="video-thumbnail">
                 ${video.isPremium ? '<span class="badge premium"><i class="ph ph-crown"></i> PRO</span>' : ''}
@@ -69,20 +70,26 @@ function renderVideos(filter = 'all', searchTerm = '') {
             </div>
         `;
 
-        // Clique no Card
+        // CORREÇÃO: Lógica de Acesso Premium Atualizada
         card.addEventListener('click', () => {
             if (video.isPremium) {
-                // Se for premium, verifica se usuário é Admin ou algo assim (ou manda logar)
-                // Aqui simplifiquei: Premium = Login ou Aviso
-                const user = JSON.parse(localStorage.getItem('user'));
-                if (user && user.isAdmin) {
-                     window.location.href = 'video.html?id=' + (video._id || video.id);
+                const userStr = localStorage.getItem('user');
+                
+                if (userStr) {
+                    const user = JSON.parse(userStr);
+                    // Agora checa se é Professor OU se é Aluno com plano Premium
+                    if (user.role === 'teacher' || user.role === 'admin' || user.plan === 'premium') {
+                         window.location.href = `video.html?id=${videoId}`;
+                    } else {
+                        alert('🔒 Conteúdo exclusivo para assinantes Premium! Faça o upgrade para assistir.');
+                    }
                 } else {
-                    alert('🔒 Conteúdo exclusivo para assinantes Premium!');
+                    alert('🔒 Faça login para assistir conteúdos Premium!');
                     window.location.href = 'login.html';
                 }
             } else {
-                window.location.href = 'video.html?id=' + (video._id || video.id);
+                // Vídeos gratuitos passam direto
+                window.location.href = `video.html?id=${videoId}`;
             }
         });
 
@@ -91,18 +98,20 @@ function renderVideos(filter = 'all', searchTerm = '') {
 }
 
 // --- 3. EVENTOS ---
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderVideos(btn.dataset.filter, searchInput.value);
+if(filterBtns && searchInput) {
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderVideos(btn.dataset.filter, searchInput.value);
+        });
     });
-});
 
-searchInput.addEventListener('input', (e) => {
-    const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-    renderVideos(activeFilter, e.target.value);
-});
+    searchInput.addEventListener('input', (e) => {
+        const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+        renderVideos(activeFilter, e.target.value);
+    });
+}
 
 // Inicializa
 document.addEventListener('DOMContentLoaded', fetchVideos);

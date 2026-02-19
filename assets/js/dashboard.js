@@ -11,22 +11,21 @@ if (!token || !userStr) {
 
 const user = JSON.parse(userStr);
 
-// Se o usuário não for Admin, chuta pra biblioteca
-if (!user.isAdmin) {
+// NOVA REGRA: Se o usuário não for professor nem admin, chuta pra biblioteca
+if (user.role !== 'teacher' && user.role !== 'admin') {
     alert('Acesso restrito a professores.');
     window.location.href = '../biblioteca.html';
 }
 
-const API_URL = 'https://mentorapp-api.onrender.com/api/videos';
-// URL para buscar a contagem de alunos
-const STATS_URL = 'https://mentorapp-api.onrender.com/api/stats'; 
+const API_URL = 'https://mentor-app-rdwc.onrender.com/api/videos';
+const STATS_URL = 'https://mentor-app-rdwc.onrender.com/api/stats'; 
 
 // ==========================================
 // 2. INICIALIZAÇÃO E EVENTOS
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
     
-    // A. Personaliza a Saudação (CORRIGIDO PARA INCLUIR O (a))
+    // A. Personaliza a Saudação 
     const greetingElement = document.getElementById('professorName');
     if (greetingElement) {
         const firstName = user.name.split(' ')[0];
@@ -35,18 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // B. Configura o Botão de Logout
     const logoutBtn = document.getElementById('logoutBtn');
-
     if (logoutBtn) {
         logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            // Limpa tudo
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            // Redireciona
             window.location.href = '../index.html';
         });
-    } else {
-        console.error('Botão de logout não encontrado!');
     }
 
     // C. Carrega os dados do Dashboard
@@ -58,11 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // ==========================================
 async function fetchDashboardData() {
     try {
-        // 1. Busca os Vídeos
         const responseVideos = await fetch(API_URL);
         const videos = await responseVideos.json();
 
-        // 2. Busca a Contagem de Alunos (Real)
         let studentCount = 0;
         try {
             const responseStats = await fetch(STATS_URL);
@@ -72,7 +64,6 @@ async function fetchDashboardData() {
             console.warn('Não foi possível buscar alunos:', error);
         }
 
-        // Passa os dois dados para atualizar a tela
         updateMetrics(videos, studentCount);
         renderTable(videos);
 
@@ -82,14 +73,11 @@ async function fetchDashboardData() {
 }
 
 function updateMetrics(videos, realStudentCount) {
-    // 1. Total de Aulas
     document.getElementById('totalVideos').innerText = videos.length;
 
-    // 2. Total de Visualizações
     const totalViews = videos.reduce((acc, video) => acc + (video.views || 0), 0);
     document.getElementById('totalViews').innerText = totalViews.toLocaleString('pt-BR');
 
-    // 3. Alunos Reais
     document.getElementById('totalStudents').innerText = realStudentCount || 0;
 }
 
@@ -97,13 +85,10 @@ function renderTable(videos) {
     const tbody = document.querySelector('.recent-classes tbody');
     tbody.innerHTML = ''; 
 
-    // Pega os últimos 5 vídeos
     const recentVideos = videos.slice().reverse().slice(0, 5);
 
     recentVideos.forEach(video => {
         const tr = document.createElement('tr');
-        
-        // Garante que usa _id ou id (dependendo de como o mongo retorna)
         const videoId = video._id || video.id; 
 
         tr.innerHTML = `
@@ -139,10 +124,7 @@ function renderTable(videos) {
 // ==========================================
 // 4. AÇÕES (EDITAR E EXCLUIR)
 // ==========================================
-
-// Redireciona para a página de upload levando o ID
 window.editVideo = (id) => {
-    // Vamos para a tela de upload, mas passamos o ID na URL para saber que é uma edição
     window.location.href = `upload.html?id=${id}`;
 };
 
@@ -158,7 +140,7 @@ window.deleteVideo = async (id) => {
 
             if (res.ok) {
                 alert('Aula excluída!');
-                fetchDashboardData(); // Recarrega a tabela
+                fetchDashboardData(); 
             } else {
                 const data = await res.json();
                 alert(`Erro: ${data.message || 'Não autorizado'}`);

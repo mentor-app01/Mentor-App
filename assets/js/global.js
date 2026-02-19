@@ -54,14 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const isRootPage = !window.location.pathname.includes('/pages/');
         const pathPrefix = isRootPage ? 'pages/' : '';
 
-        // Define a rota do dashboard correto baseada na role
-        let dashboardUrl = 'dashboard.html'; // Padrão: professor
-        if (user.role === 'student') dashboardUrl = 'aluno-dashboard.html';
-        if (user.role === 'admin') dashboardUrl = 'admin-dashboard.html';
+        // Define a rota correta baseada na role do usuário
+        let targetUrl = 'dashboard.html'; // Padrão para admin e teacher
+        
+        if (user.role === 'student') {
+            targetUrl = 'biblioteca.html'; // Alunos sempre vão para a biblioteca
+        }
 
         // 🎯 MÁGICA 1: Altera apenas o texto e o link do botão dourado! (Preserva o CSS inteiro)
         authBtn.textContent = `Olá, ${firstName}`;
-        authBtn.href = `${pathPrefix}${dashboardUrl}`;
+        authBtn.href = `${pathPrefix}${targetUrl}`;
 
         // 🎯 MÁGICA 2: Cria um pequeno botão "Sair" do lado, sem quebrar o layout
         const liParent = authBtn.closest('.nav-premium');

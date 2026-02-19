@@ -10,35 +10,34 @@ function checkHomeLogin() {
         try {
             const user = JSON.parse(userStr);
             
-            // Encontra o botão de destaque no menu (Sou Premium)
+            // Encontra o botão de destaque no menu
             const navBtn = document.querySelector('.btn-nav-highlight');
             
             if (navBtn) {
-                // 1. Atualiza o Botão Principal (Olá, Nome)
+                // 1. Atualiza o Botão Principal
                 navBtn.textContent = `Olá, ${user.name.split(' ')[0]}`;
                 
-                // Define o destino baseado no tipo de usuário
-                if (user.isAdmin) {
-                    navBtn.href = 'pages/dashboard.html'; // Professor
+                // CORREÇÃO: Define o destino baseado no 'role' (papel do usuário)
+                if (user.role === 'teacher' || user.role === 'admin') {
+                    navBtn.href = 'pages/dashboard.html'; 
                 } else {
-                    navBtn.href = 'pages/biblioteca.html'; // Aluno
+                    navBtn.href = 'pages/biblioteca.html'; 
                 }
 
                 // 2. Cria o botão de Sair ao lado (Dinâmico)
                 const li = navBtn.parentElement;
 
-                // Evita duplicar o botão se a função rodar mais de uma vez
                 if (document.getElementById('dynamicLogoutBtn')) return;
                 
                 const logoutLink = document.createElement('a');
-                logoutLink.id = 'dynamicLogoutBtn'; // ID para controle
+                logoutLink.id = 'dynamicLogoutBtn'; 
                 logoutLink.href = "#";
                 logoutLink.innerHTML = '<i class="ph ph-sign-out"></i>';
                 
-                // Estilos para ficar bonito ao lado do botão
+                // Estilos
                 logoutLink.style.marginLeft = "15px";
                 logoutLink.style.color = "var(--text-color)";
-                logoutLink.style.fontSize = "1.4rem"; // Um pouco maior
+                logoutLink.style.fontSize = "1.4rem"; 
                 logoutLink.style.display = "flex";
                 logoutLink.style.alignItems = "center";
                 logoutLink.title = "Sair";
@@ -46,22 +45,19 @@ function checkHomeLogin() {
                 // Lógica de Logout
                 logoutLink.addEventListener('click', (e) => {
                     e.preventDefault();
-                    // Limpa a sessão
                     localStorage.removeItem('token');
                     localStorage.removeItem('user');
-                    // Recarrega a página inicial (voltando ao estado original)
                     window.location.reload();
                 });
 
                 li.appendChild(logoutLink);
                 
-                // Ajusta o container (li) para os itens ficarem lado a lado
+                // Ajusta o container
                 li.style.display = "flex";
                 li.style.alignItems = "center";
             }
         } catch (e) {
             console.error("Erro ao processar usuário:", e);
-            // Se os dados estiverem corrompidos, limpa tudo
             localStorage.removeItem('token');
             localStorage.removeItem('user');
         }
