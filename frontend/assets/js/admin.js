@@ -18,18 +18,16 @@ document.addEventListener('DOMContentLoaded', loadPendingUsers);
 // ==========================================
 // LÓGICA DE ABAS (TABS)
 // ==========================================
-function switchTab(tab) {
-    // Reseta botões do menu
+window.switchTab = function(tab) {
     document.getElementById('tab-approvals').classList.remove('active');
     document.getElementById('tab-ads').classList.remove('active');
-    // Esconde todas as seções
+    
     document.getElementById('section-approvals').style.display = 'none';
     document.getElementById('section-ads').style.display = 'none';
 
-    // Ativa apenas a escolhida
     document.getElementById(`tab-${tab}`).classList.add('active');
     document.getElementById(`section-${tab}`).style.display = 'block';
-}
+};
 
 // ==========================================
 // LÓGICA DE APROVAÇÕES
@@ -69,7 +67,7 @@ async function loadPendingUsers() {
     }
 }
 
-async function updateStatus(id, status) {
+window.updateStatus = async function(id, status) {
     if (!confirm(`Tem certeza que deseja ${status === 'approved' ? 'aprovar' : 'recusar'} este usuário?`)) return;
     try {
         await fetch(`${API_URL}/status/${id}`, {
@@ -79,26 +77,31 @@ async function updateStatus(id, status) {
         });
         loadPendingUsers(); 
     } catch (error) { alert("Erro ao atualizar status!"); }
-}
+};
 
 // ==========================================
 // LÓGICA DE ANÚNCIOS (UPLOAD DE IMAGEM)
 // ==========================================
-// Exibe preview da imagem ao selecionar
 document.getElementById('adImageInput').addEventListener('change', function(e) {
     const file = e.target.files[0];
+    const fileNameDisplay = document.getElementById('fileNameDisplay');
+    
     if (file) {
+        fileNameDisplay.textContent = file.name; 
+        
         const reader = new FileReader();
         reader.onload = function(event) {
             document.getElementById('adPreview').src = event.target.result;
             document.getElementById('adPreviewContainer').style.display = 'block';
         }
-        reader.readAsDataURL(file); // Converte para Base64
+        reader.readAsDataURL(file); 
+    } else {
+        fileNameDisplay.textContent = 'Nenhum arquivo selecionado.';
+        document.getElementById('adPreviewContainer').style.display = 'none';
     }
 });
 
-// Envia para a API
-async function uploadAd() {
+window.uploadAd = async function() {
     const imgSrc = document.getElementById('adPreview').src;
     if (!imgSrc || imgSrc === "") return alert("Selecione uma imagem primeiro!");
 
@@ -119,4 +122,4 @@ async function uploadAd() {
         btn.innerText = "Salvar Anúncio";
         btn.disabled = false;
     }
-}
+};
