@@ -66,7 +66,13 @@
                 <div style="padding: 10px 0;">
                     <p style="margin-bottom: 15px; color: #666;">Selecione uma imagem do seu computador. Ela aparecerá para todos os usuários na área "Anuncie Aqui".</p>
                     
-                    <input type="file" id="adImageInput" accept="image/png, image/jpeg, image/gif" style="margin-bottom: 15px; display: block;">
+                    <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
+                        <input type="file" id="adImageInput" accept="image/png, image/jpeg, image/gif" hidden>
+                        <label for="adImageInput" class="btn btn-outline" style="cursor: pointer; margin: 0;">
+                            <i class="ph ph-upload-simple" style="margin-right: 8px;"></i> Escolher Imagem
+                        </label>
+                        <span id="fileNameDisplay" style="color: #666; font-size: 0.9rem;">Nenhum arquivo selecionado.</span>
+                    </div>
                     
                     <div id="adPreviewContainer" style="margin-bottom: 15px; display: none;">
                         <img id="adPreview" style="max-width: 100%; max-height: 250px; border-radius: 8px; border: 1px solid #ddd;">
