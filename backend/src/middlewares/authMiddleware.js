@@ -25,10 +25,10 @@ exports.protect = (req, res, next) => {
     }
 };
 
-
+// Verifica se o usuário é professor ou admin
 exports.adminOnly = (req, res, next) => {
-    if (!req.user || !req.user.isAdmin) {
-        return res.status(403).json({ message: 'Acesso negado: Apenas professores.' });
+    if (!req.user || (req.user.role !== 'teacher' && req.user.role !== 'admin')) {
+        return res.status(403).json({ message: 'Acesso negado: Apenas professores ou administradores.' });
     }
     next();
 };
