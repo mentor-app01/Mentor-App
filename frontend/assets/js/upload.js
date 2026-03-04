@@ -28,17 +28,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Elementos da Categoria
     const categorySelect = document.getElementById('category');
     const newCategoryInput = document.getElementById('newCategoryInput'); 
+    const pdfFileInput = document.getElementById('pdfFile'); // NOVO CAMPO PDF
 
     // --- 1. LÓGICA DE CATEGORIA (MOSTRAR/ESCONDER) ---
     if (categorySelect && newCategoryInput) {
         categorySelect.addEventListener('change', () => {
             if (categorySelect.value === 'new_category') {
-                // Se escolheu criar nova, mostra o campo de texto
                 newCategoryInput.classList.remove('hidden');
                 newCategoryInput.required = true; 
                 newCategoryInput.focus();
             } else {
-                // Se escolheu uma existente, esconde e limpa
                 newCategoryInput.classList.add('hidden');
                 newCategoryInput.required = false;
                 newCategoryInput.value = '';
@@ -62,13 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 4. ENVIAR FORMULÁRIO ---
+    // --- 4. ENVIAR FORMULÁRIO COM ARQUIVO ---
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const originalText = submitBtn.innerText;
-            submitBtn.innerText = 'Salvando...';
+            submitBtn.innerText = 'Salvando Aula e Arquivo...';
             submitBtn.disabled = true;
 
             // Pegar valores
@@ -95,16 +94,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`
                 : 'https://via.placeholder.com/1280x720?text=Sem+Capa';
 
-            // Montar Objeto
-            const videoData = {
-                title: title,
-                tag: formatCategory(finalCategory), 
-                isPremium: visibility === 'premium',
-                image: imageUrl,
-                videoUrl: videoUrl,
-                description: description,
-                author: user.name 
-            };
+            // MONTAR FORMDATA PARA ENVIAR ARQUIVO + TEXTO
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('tag', formatCategory(finalCategory));
+            formData.append('isPremium', visibility === 'premium');
+            formData.append('image', imageUrl);
+            formData.append('videoUrl', videoUrl);
+            formData.append('description', description);
+            formData.append('author', user.name);
+
+            if (pdfFileInput && pdfFileInput.files[0]) {
+                formData.append('pdfFile', pdfFileInput.files[0]);
+            }
 
             const method = videoId ? 'PUT' : 'POST';
             const url = videoId ? `${API_URL}/${videoId}` : API_URL;
@@ -113,13 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch(url, {
                     method: method,
                     headers: {
-                        'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
+                        // NOTA: 'Content-Type' não é definido ao enviar FormData, o navegador cuida disso.
                     },
-                    body: JSON.stringify(videoData)
+                    body: formData
                 });
 
-                // --- PROTEÇÃO CONTRA RESPOSTAS QUE NÃO SÃO JSON ---
                 const responseText = await response.text();
                 let data;
                 try {
@@ -139,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error(error);
                 alert(`Erro: ${error.message}`);
+            } finally {
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;
             }
@@ -177,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Se a categoria da aula NÃO existe no select (é uma personalizada), ativa o modo manual
+            // Se a categoria da aula NÃO existe no select, ativa o modo manual
             if (!foundInSelect) {
                 categorySelect.value = 'new_category';
                 newCategoryInput.classList.remove('hidden');

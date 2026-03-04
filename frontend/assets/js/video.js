@@ -67,6 +67,20 @@ function renderVideo(video) {
     const authorEl = document.querySelector('.author-badge');
     if (authorEl) authorEl.innerHTML = `<i class="ph ph-user"></i> ${video.author}`;
 
+    // --- NOVO: Renderizar botão do PDF se existir ---
+    const materialContainer = document.getElementById('materialContainer');
+    if (materialContainer) {
+        if (video.pdfUrl && video.pdfUrl !== "") {
+            materialContainer.innerHTML = `
+                <a href="${video.pdfUrl}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none; max-width: max-content;">
+                    <i class="ph ph-file-pdf" style="font-size: 1.2rem;"></i> Baixar Material de Apoio
+                </a>
+            `;
+        } else {
+            materialContainer.innerHTML = ''; 
+        }
+    }
+
     document.title = `${video.title} | MentorApp`;
 }
 

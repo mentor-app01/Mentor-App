@@ -18,7 +18,8 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'mentorapp_pdfs',
-        allowed_formats: ['pdf'] // Aceita apenas PDF
+        resource_type: 'raw', // 👈 A MÁGICA: Diz ao Cloudinary que é um documento, não uma imagem
+        format: 'pdf'
     },
 });
 const upload = multer({ storage: storage });
