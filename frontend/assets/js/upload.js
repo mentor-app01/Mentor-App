@@ -29,6 +29,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const categorySelect = document.getElementById('category');
     const newCategoryInput = document.getElementById('newCategoryInput'); 
     const pdfFileInput = document.getElementById('pdfFile'); // NOVO CAMPO PDF
+    const pdfFileNameDisplay = document.getElementById('pdfFileNameDisplay');
+
+    // --- LÓGICA DE EXIBIÇÃO DO NOME DO ARQUIVO PDF ---
+    if (pdfFileInput && pdfFileNameDisplay) {
+        pdfFileInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                pdfFileNameDisplay.textContent = this.files[0].name;
+                pdfFileNameDisplay.style.color = "var(--text-color)";
+            } else {
+                pdfFileNameDisplay.textContent = "Nenhum arquivo selecionado.";
+                pdfFileNameDisplay.style.color = "#666";
+            }
+        });
+    }
 
     // --- 1. LÓGICA DE CATEGORIA (MOSTRAR/ESCONDER) ---
     if (categorySelect && newCategoryInput) {

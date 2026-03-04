@@ -83,8 +83,14 @@
             </div>
 
             <div class="input-group" style="margin-top: 15px;">
-                <label for="pdfFile" style="display: block; font-weight: 600; margin-bottom: 5px;">Material de Apoio (PDF Opcional)</label>
-                <input type="file" id="pdfFile" accept="application/pdf" class="form-control" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                <label style="display: block; font-weight: 600; margin-bottom: 5px;">Material de Apoio (PDF Opcional)</label>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <input type="file" id="pdfFile" accept="application/pdf" hidden>
+                    <label for="pdfFile" class="btn btn-outline" style="cursor: pointer; margin: 0;">
+                        <i class="ph ph-upload-simple" style="margin-right: 8px;"></i> Escolher Arquivo
+                    </label>
+                    <span id="pdfFileNameDisplay" style="color: #666; font-size: 0.9rem;">Nenhum arquivo selecionado.</span>
+                </div>
             </div>
             
         </section>
