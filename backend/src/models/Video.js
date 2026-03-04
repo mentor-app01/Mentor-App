@@ -8,7 +8,8 @@ const VideoSchema = new mongoose.Schema({
     isPremium: { type: Boolean, default: false },
     image: String, 
     videoUrl: { type: String, required: true },
-    description: String
+    description: String,
+    pdfUrl: { type: String, default: "" } // 👇 Campo do PDF adicionado aqui
 }, {
     timestamps: true 
 });

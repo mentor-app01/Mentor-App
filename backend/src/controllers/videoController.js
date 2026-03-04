@@ -24,6 +24,11 @@ exports.getVideoById = async (req, res) => {
 // Criar um vídeo
 exports.createVideo = async (req, res) => {
     try {
+        // Se um PDF foi enviado, pega o link do Cloudinary e salva no pdfUrl
+        if (req.file) {
+            req.body.pdfUrl = req.file.path; 
+        }
+
         const newVideo = new Video(req.body);
         const savedVideo = await newVideo.save();
         res.status(201).json(savedVideo);
@@ -36,6 +41,11 @@ exports.createVideo = async (req, res) => {
 exports.updateVideo = async (req, res) => {
     try {
         const { id } = req.params;
+        
+        // Atualiza a URL do PDF se um arquivo novo for enviado
+        if (req.file) {
+            req.body.pdfUrl = req.file.path;
+        }
         
         const updatedVideo = await Video.findByIdAndUpdate(id, req.body, { new: true });
 
@@ -53,7 +63,6 @@ exports.updateVideo = async (req, res) => {
 exports.deleteVideo = async (req, res) => {
     try {
         const { id } = req.params;
-        
         const deletedVideo = await Video.findByIdAndDelete(id);
 
         if (!deletedVideo) {
@@ -66,21 +75,17 @@ exports.deleteVideo = async (req, res) => {
     }
 };
 
-//  Adicionar visualização (+1)
-
+// Adicionar visualização (+1)
 exports.incrementViews = async (req, res) => {
     try {
         const { id } = req.params;
-        
         const updatedVideo = await Video.findByIdAndUpdate(
             id, 
             { $inc: { views: 1 } }, 
             { new: true }
         );
 
-        if (!updatedVideo) {
-            return res.status(404).json({ message: "Vídeo não encontrado" });
-        }
+        if (!updatedVideo) return res.status(404).json({ message: "Vídeo não encontrado" });
 
         res.json({ message: "Visualização contabilizada!", views: updatedVideo.views });
     } catch (error) {
