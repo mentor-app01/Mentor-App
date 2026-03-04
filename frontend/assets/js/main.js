@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchVideos(); // Busca os vídeos no Banco de Dados
+    handleLibraryAdsDisplay(); // Verifica e exibe/oculta o anúncio
 });
 
 const API_URL = 'https://mentor-app-rdwc.onrender.com/api/videos';
@@ -30,7 +31,7 @@ async function fetchVideos() {
             grid.innerHTML = `
                 <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
                     <p style="color: var(--text-color); margin-bottom: 10px;">Não foi possível carregar as aulas.</p>
-                    <small style="color: #ef4444;">Verifique se o backend está rodando (npm run dev).</small>
+                    <small style="color: #ef4444;">Verifique se o backend está rodando.</small>
                 </div>
             `;
         }
@@ -91,7 +92,6 @@ function renderVideos(videos) {
                          window.location.href = `video.html?id=${videoId}`;
                     } else {
                         alert('🔒 Conteúdo exclusivo para assinantes Premium! Faça o upgrade para assistir.');
-                        // Pode redirecionar para tela de pagamento/dashboard
                     }
                 } else {
                     alert('🔒 Faça login para assistir conteúdos Premium!');
@@ -144,3 +144,33 @@ filterBtns.forEach(btn => {
         }
     });
 });
+
+// 5. LÓGICA DE EXIBIÇÃO DO ANÚNCIO (Banner)
+async function handleLibraryAdsDisplay() {
+    const token = localStorage.getItem('token');
+    const userStr = localStorage.getItem('user');
+    const adBox = document.getElementById('libraryAdBox');
+    
+    // 1. SE ESTIVER LOGADO: Esconde a propaganda e encerra
+    if (token && userStr) {
+        if (adBox) adBox.style.display = 'none';
+        return; 
+    }
+
+    // 2. SE NÃO ESTIVER LOGADO: Busca a imagem
+    try {
+        const response = await fetch('https://mentor-app-rdwc.onrender.com/api/admin/ad');
+        if (!response.ok) return;
+        
+        const adData = await response.json();
+        
+        if (adData && adData.imageBase64) {
+            document.getElementById('defaultAdText').style.display = 'none';
+            const adImg = document.getElementById('adImage');
+            adImg.src = adData.imageBase64;
+            adImg.style.display = 'block';
+        }
+    } catch (error) {
+        console.error("Erro ao carregar anúncio:", error);
+    }
+}
