@@ -1,65 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
-    checkHomeLogin();
+    handleAdsDisplay();
 });
 
-function checkHomeLogin() {
+async function handleAdsDisplay() {
     const token = localStorage.getItem('token');
     const userStr = localStorage.getItem('user');
-
+    const adBox = document.getElementById('homeAdBox');
+    
+    // 1. SE ESTIVER LOGADO: Esconde a propaganda e encerra a função
     if (token && userStr) {
-        try {
-            const user = JSON.parse(userStr);
-            
-            // Encontra o botão de destaque no menu
-            const navBtn = document.querySelector('.btn-nav-highlight');
-            
-            if (navBtn) {
-                // 1. Atualiza o Botão Principal
-                navBtn.textContent = `Olá, ${user.name.split(' ')[0]}`;
-                
-                // CORREÇÃO: Define o destino baseado no 'role' (papel do usuário)
-                if (user.role === 'teacher' || user.role === 'admin') {
-                    navBtn.href = 'pages/dashboard.html'; 
-                } else {
-                    navBtn.href = 'pages/biblioteca.html'; 
-                }
+        if (adBox) adBox.style.display = 'none';
+        return; 
+    }
 
-                // 2. Cria o botão de Sair ao lado (Dinâmico)
-                const li = navBtn.parentElement;
-
-                if (document.getElementById('dynamicLogoutBtn')) return;
-                
-                const logoutLink = document.createElement('a');
-                logoutLink.id = 'dynamicLogoutBtn'; 
-                logoutLink.href = "#";
-                logoutLink.innerHTML = '<i class="ph ph-sign-out"></i>';
-                
-                // Estilos
-                logoutLink.style.marginLeft = "15px";
-                logoutLink.style.color = "var(--text-color)";
-                logoutLink.style.fontSize = "1.4rem"; 
-                logoutLink.style.display = "flex";
-                logoutLink.style.alignItems = "center";
-                logoutLink.title = "Sair";
-                
-                // Lógica de Logout
-                logoutLink.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    localStorage.removeItem('token');
-                    localStorage.removeItem('user');
-                    window.location.reload();
-                });
-
-                li.appendChild(logoutLink);
-                
-                // Ajusta o container
-                li.style.display = "flex";
-                li.style.alignItems = "center";
-            }
-        } catch (e) {
-            console.error("Erro ao processar usuário:", e);
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
+    // 2. SE NÃO ESTIVER LOGADO: Busca a imagem do anúncio no Banco de Dados
+    try {
+        const response = await fetch('https://mentor-app-rdwc.onrender.com/api/admin/ad');
+        if (!response.ok) return;
+        
+        const adData = await response.json();
+        
+        // Se existir uma imagem salva no banco, esconde o texto padrão e mostra a imagem
+        if (adData && adData.imageBase64) {
+            document.getElementById('defaultAdText').style.display = 'none';
+            const adImg = document.getElementById('adImage');
+            adImg.src = adData.imageBase64;
+            adImg.style.display = 'block';
         }
+    } catch (error) {
+        console.error("Erro ao carregar anúncio:", error);
     }
 }

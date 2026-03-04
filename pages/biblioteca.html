@@ -21,7 +21,6 @@
                     <span class="logo-text">MentorApp</span>
                 </a>
                 
-                <!-- Botão hamburguer para mobile -->
                 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
                     <span></span>
                     <span></span>
@@ -75,11 +74,14 @@
             </section>
 
             <aside class="sidebar">
-                <div class="ads-box">
+                <div class="ads-box" id="libraryAdBox">
                     <span class="ad-label">Publicidade</span>
-                    <div class="ad-content">
-                        <p>Parceiros MentorApp</p>
-                        <small>Espaço reservado</small>
+                    <div class="ad-content" id="adContent">
+                        <div id="defaultAdText">
+                            <p>Parceiros MentorApp</p>
+                            <small>Espaço reservado</small>
+                        </div>
+                        <img id="adImage" src="" alt="Anúncio Parceiro" style="display: none; max-width: 100%; border-radius: 8px; margin-top: 10px;">
                     </div>
                 </div>
             </aside>
@@ -100,5 +102,7 @@
 
     <script src="../assets/js/mobile-menu.js"></script>
     <script src="../assets/js/theme.js"></script>
-    <script src="../assets/js/global.js"></script>  <script src="../assets/js/main.js"></script>    </body>
+    <script src="../assets/js/global.js"></script>  
+    <script src="../assets/js/main.js"></script>    
+</body>
 </html>
