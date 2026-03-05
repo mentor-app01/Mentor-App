@@ -11,6 +11,7 @@ const User = require('./models/User');
 
 const videoRoutes = require('./routes/videoRoutes');
 const authRoutes = require('./routes/authRoutes'); 
+const adRoutes = require('./routes/adRoutes'); // 👈 Importando as novas rotas de anúncios
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,13 +23,12 @@ app.use(express.json());
 app.use('/api/videos', videoRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', require('./routes/admin'));
+app.use('/api/ads', adRoutes); // 👈 Ativando a rota de anúncios (Slider)
 
-// --- ROTA DE ESTATÍSTICAS (CORRIGIDA) ---
+// --- ROTA DE ESTATÍSTICAS ---
 app.get('/api/stats', async (req, res) => {
     try {
-        // Agora conta corretamente baseado na nova estrutura de 'role'
         const studentCount = await User.countDocuments({ role: 'student' });
-        
         res.json({ studentCount });
     } catch (error) {
         console.error("Erro ao contar alunos:", error);
@@ -36,12 +36,11 @@ app.get('/api/stats', async (req, res) => {
     }
 });
 
-// --- CONEXÃO COM O BANCO DA CLIENTE ---
-// Tenta pegar do .env, mas se falhar, usa a URL oficial direto
+// --- CONEXÃO COM O BANCO ---
 const dbURI = process.env.MONGO_URI || 'mongodb+srv://viviane:viviane01mentor@mentorapp.x82rjcn.mongodb.net/MentorApp?retryWrites=true&w=majority';
 
 mongoose.connect(dbURI)
-    .then(() => console.log("✅ MongoDB Atlas (Nuveem) Conectado!"))
+    .then(() => console.log("✅ MongoDB Atlas Conectado!"))
     .catch((err) => console.error("❌ Erro ao conectar no Mongo:", err));
 
 app.listen(PORT, () => {
