@@ -61,24 +61,24 @@
 
             <div id="section-ads" class="card fade-in" style="display: none;">
                 <div class="card-header">
-                    <h3><i class="ph ph-image"></i> Atualizar Banner de Anúncio</h3>
+                    <h3><i class="ph ph-image"></i> Gerenciar Slide de Anúncios</h3>
                 </div>
                 <div style="padding: 10px 0;">
-                    <p style="margin-bottom: 15px; color: #666;">Selecione uma imagem do seu computador. Ela aparecerá para todos os usuários na área "Anuncie Aqui".</p>
+                    <p style="margin-bottom: 15px; color: #666;">Envie novas imagens para o slide. Elas aparecerão em rotação para os visitantes na Home e Biblioteca.</p>
                     
-                    <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 15px;">
-                        <input type="file" id="adImageInput" accept="image/png, image/jpeg, image/gif" hidden>
+                    <div style="margin-bottom: 25px; display: flex; align-items: center; gap: 15px; background: var(--bg-color); padding: 15px; border-radius: 10px;">
+                        <input type="file" id="adImageInput" accept="image/*" hidden>
                         <label for="adImageInput" class="btn btn-outline" style="cursor: pointer; margin: 0;">
-                            <i class="ph ph-upload-simple" style="margin-right: 8px;"></i> Escolher Imagem
+                            <i class="ph ph-plus-circle"></i> Escolher Imagem
                         </label>
-                        <span id="fileNameDisplay" style="color: #666; font-size: 0.9rem;">Nenhum arquivo selecionado.</span>
+                        <span id="fileNameDisplay" style="color: #666; font-size: 0.9rem;">Nenhum arquivo...</span>
+                        <button onclick="uploadAd()" class="btn btn-primary" id="btnUploadAd">Adicionar ao Slide</button>
                     </div>
-                    
-                    <div id="adPreviewContainer" style="margin-bottom: 15px; display: none;">
-                        <img id="adPreview" style="max-width: 100%; max-height: 250px; border-radius: 8px; border: 1px solid #ddd;">
+
+                    <h4 style="margin-bottom: 15px; color: var(--title-color);">Anúncios Ativos</h4>
+                    <div id="adsList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px;">
+                        <p style="color: #999;">Carregando anúncios...</p>
                     </div>
-                    
-                    <button onclick="uploadAd()" class="btn btn-primary">Salvar Anúncio</button>
                 </div>
             </div>
 
