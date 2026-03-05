@@ -12,6 +12,7 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 });
 
 const API_URL = 'https://mentor-app-rdwc.onrender.com/api/admin';
+const ADS_API = 'https://mentor-app-rdwc.onrender.com/api/ads';
 
 document.addEventListener('DOMContentLoaded', loadPendingUsers);
 
@@ -27,6 +28,8 @@ window.switchTab = function(tab) {
 
     document.getElementById(`tab-${tab}`).classList.add('active');
     document.getElementById(`section-${tab}`).style.display = 'block';
+
+    if (tab === 'ads') loadAds();
 };
 
 // ==========================================
@@ -80,46 +83,88 @@ window.updateStatus = async function(id, status) {
 };
 
 // ==========================================
-// LÓGICA DE ANÚNCIOS (UPLOAD DE IMAGEM)
+// LÓGICA DE ANÚNCIOS (MULTIPLE SLIDES)
 // ==========================================
+
+// Mostrar nome do arquivo selecionado
 document.getElementById('adImageInput').addEventListener('change', function(e) {
     const file = e.target.files[0];
     const fileNameDisplay = document.getElementById('fileNameDisplay');
-    
-    if (file) {
-        fileNameDisplay.textContent = file.name; 
-        
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            document.getElementById('adPreview').src = event.target.result;
-            document.getElementById('adPreviewContainer').style.display = 'block';
-        }
-        reader.readAsDataURL(file); 
-    } else {
-        fileNameDisplay.textContent = 'Nenhum arquivo selecionado.';
-        document.getElementById('adPreviewContainer').style.display = 'none';
-    }
+    if (file) fileNameDisplay.textContent = file.name;
 });
 
-window.uploadAd = async function() {
-    const imgSrc = document.getElementById('adPreview').src;
-    if (!imgSrc || imgSrc === "") return alert("Selecione uma imagem primeiro!");
+// Carregar vitrine de anúncios
+async function loadAds() {
+    const container = document.getElementById('adsList');
+    try {
+        const res = await fetch(ADS_API);
+        const ads = await res.json();
+        
+        if (ads.length === 0) {
+            container.innerHTML = '<p style="grid-column: 1/-1; color: #999; text-align: center; padding: 20px;">Nenhum anúncio ativo.</p>';
+            return;
+        }
 
-    const btn = document.querySelector('#section-ads .btn-primary');
-    btn.innerText = "Salvando...";
+        container.innerHTML = ads.map(ad => `
+            <div class="ad-card-item" style="position: relative; border-radius: 12px; overflow: hidden; border: 2px solid var(--primary-light); background: #000;">
+                <img src="${ad.imageUrl}" style="width: 100%; height: 120px; object-fit: cover; opacity: 0.8;">
+                <button onclick="deleteAd('${ad._id}')" style="position: absolute; top: 8px; right: 8px; background: #ef4444; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+                    <i class="ph ph-trash"></i>
+                </button>
+            </div>
+        `).join('');
+    } catch (error) {
+        container.innerHTML = '<p style="color:red;">Erro ao carregar vitrine.</p>';
+    }
+}
+
+// Upload de novo anúncio
+window.uploadAd = async function() {
+    const fileInput = document.getElementById('adImageInput');
+    const btn = document.getElementById('btnUploadAd');
+    
+    if (!fileInput.files[0]) return alert("Selecione uma imagem!");
+
+    const formData = new FormData();
+    formData.append('adImage', fileInput.files[0]);
+
+    btn.innerText = "Enviando...";
     btn.disabled = true;
 
     try {
-        await fetch(`${API_URL}/ad`, {
+        const res = await fetch(ADS_API, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ imageBase64: imgSrc })
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+            body: formData
         });
-        alert("Anúncio atualizado com sucesso!");
+
+        if (res.ok) {
+            alert("Imagem adicionada ao slide!");
+            fileInput.value = '';
+            document.getElementById('fileNameDisplay').innerText = 'Nenhum arquivo...';
+            loadAds();
+        } else {
+            throw new Error("Erro no servidor");
+        }
     } catch (error) {
         alert("Erro ao salvar anúncio.");
     } finally {
-        btn.innerText = "Salvar Anúncio";
+        btn.innerText = "Adicionar ao Slide";
         btn.disabled = false;
+    }
+};
+
+// Excluir anúncio
+window.deleteAd = async function(id) {
+    if (!confirm("Remover do slide?")) return;
+
+    try {
+        const res = await fetch(`${ADS_API}/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        });
+        if (res.ok) loadAds();
+    } catch (error) {
+        alert("Erro ao excluir.");
     }
 };
