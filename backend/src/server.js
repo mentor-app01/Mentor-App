@@ -11,7 +11,7 @@ const User = require('./models/User');
 
 const videoRoutes = require('./routes/videoRoutes');
 const authRoutes = require('./routes/authRoutes'); 
-const adRoutes = require('./routes/adRoutes'); // 👈 Importando as novas rotas de anúncios
+const adRoutes = require('./routes/adRoutes'); 
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,7 +23,8 @@ app.use(express.json());
 app.use('/api/videos', videoRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', require('./routes/admin'));
-app.use('/api/ads', adRoutes); // 👈 Ativando a rota de anúncios (Slider)
+app.use('/api/ads', adRoutes); 
+app.use('/api/ia', require('./routes/aiRoutes'));
 
 // --- ROTA DE ESTATÍSTICAS ---
 app.get('/api/stats', async (req, res) => {

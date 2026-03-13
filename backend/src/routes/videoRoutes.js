@@ -18,7 +18,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'mentorapp_pdfs',
-        resource_type: 'raw', // 👈 A MÁGICA: Diz ao Cloudinary que é um documento, não uma imagem
+        resource_type: 'raw', 
         format: 'pdf'
     },
 });

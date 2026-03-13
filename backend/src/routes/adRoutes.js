@@ -11,7 +11,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
         folder: 'mentorapp_ads',
-        allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp'] // Aceita imagens
+        allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp'] 
     },
 });
 const upload = multer({ storage: storage });
