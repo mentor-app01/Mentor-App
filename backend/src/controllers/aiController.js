@@ -7,8 +7,7 @@ exports.corrigirRedacao = async (req, res) => {
     try {
         if (!req.file) return res.status(400).json({ message: "Envie a imagem ou PDF da redação." });
 
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });        // O comando invisível que a IA vai seguir
-        const prompt = "Atue como um corretor do ENEM. Leia esta redação, aponte os erros gramaticais, avalie as competências e dê uma nota final de 0 a 1000. Seja claro e encorajador.";
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });        const prompt = "Atue como um corretor do ENEM. Leia esta redação, aponte os erros gramaticais, avalie as competências e dê uma nota final de 0 a 1000. Seja claro e encorajador.";
 
         const filePart = {
             inlineData: {
