@@ -9,6 +9,18 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
     <link rel="stylesheet" href="assets/css/global.css">
+    
+    <style>
+        /* Força a remoção da linha abaixo do botão premium */
+        .nav-premium .btn-nav-highlight::after,
+        .nav-premium .btn-nav-highlight {
+            border-bottom: none !important;
+            text-decoration: none !important;
+        }
+        .nav-premium .btn-nav-highlight.active::after {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -33,9 +45,9 @@
                     <li><a href="pages/contato.html" class="nav-link">Contato</a></li>
                     <li><a href="pages/login.html" class="nav-link" style="font-weight: 700;">Login</a></li>
                     
-                   <li class="nav-premium" id="authNavArea">
-    <a href="premium.html" class="nav-link btn-nav-highlight">Seja Premium</a>
-</li>
+                  <li class="nav-premium" id="authNavArea">
+                        <a href="premium.html" class="nav-link btn-nav-highlight">Seja Premium</a>
+                    </li>
                     
                     <li class="nav-theme">
                         <div class="checkbox-wrapper-8">
