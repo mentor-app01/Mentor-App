@@ -21,10 +21,8 @@ exports.corrigirRedacao = async (req, res) => {
                     }
                 }
             ]
-        });
-        
+        });     
         res.json({ feedback: response.text });
-
     } catch (error) {
         console.error("Erro na API da IA:", error);
         res.status(500).json({ message: "Erro ao processar redação na IA." });
